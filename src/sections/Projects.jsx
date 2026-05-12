@@ -1,11 +1,20 @@
-// ─────────────────────────────────────────────
-// Projects.jsx
-// Edit: project content in src/data/content.js → projects array
-// Images: upload to /public/images/[project-folder]/
-// Videos: upload to /public/videos/ then set hasFile=true in shared.jsx VideoBlock
-// ─────────────────────────────────────────────
-import { SectionHeading, ProjectImage, VideoBlock, BeforeAfterCard, useInView } from "../components/shared";
+import { SectionHeading, ProjectImage, BeforeAfterCard, useInView } from "../components/shared";
 import { projects } from "../data/content";
+
+function VideoEmbed({ youtubeId, label }) {
+  if (!youtubeId) return null;
+  return (
+    <div className="relative w-full aspect-video rounded-sm overflow-hidden">
+      <iframe
+        src={`https://www.youtube.com/embed/${youtubeId}`}
+        title={label}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        className="absolute inset-0 w-full h-full"
+      />
+    </div>
+  );
+}
 
 export default function Projects() {
   return (
@@ -45,6 +54,7 @@ export default function Projects() {
 
                 {/* Content grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+
                   {/* Text side */}
                   <div className={isEven ? "" : "lg:order-2"}>
                     <p className="text-stone-600 leading-relaxed mb-6 text-base">{project.narrative}</p>
@@ -63,10 +73,20 @@ export default function Projects() {
                       <p className="text-xs tracking-[0.2em] uppercase text-amber-700 font-medium mb-2">Strategic Note</p>
                       <p className="text-stone-700 text-sm leading-relaxed italic">{project.strategicNote}</p>
                     </div>
-                    {project.video && (
+
+                    {/* Walkthrough video */}
+                    {project.youtubeId && (
                       <div className="mt-8">
                         <p className="text-xs tracking-[0.2em] uppercase text-stone-400 font-medium mb-3">Walkthrough</p>
-                        <VideoBlock src={project.video} label={`${project.title} walkthrough`} />
+                        <VideoEmbed youtubeId={project.youtubeId} label={`${project.title} walkthrough`} />
+                      </div>
+                    )}
+
+                    {/* Before & After video */}
+                    {project.youtubeBeforeAfterId && (
+                      <div className="mt-6">
+                        <p className="text-xs tracking-[0.2em] uppercase text-stone-400 font-medium mb-3">Before & After</p>
+                        <VideoEmbed youtubeId={project.youtubeBeforeAfterId} label={`${project.title} before and after`} />
                       </div>
                     )}
                   </div>
@@ -84,7 +104,7 @@ export default function Projects() {
                         ))}
                       </div>
                     )}
-                    {project.beforeAfter.length > 0 && (
+                    {project.beforeAfter && project.beforeAfter.length > 0 && (
                       <div>
                         <p className="text-xs tracking-[0.2em] uppercase text-stone-400 font-medium mb-3">Before / After</p>
                         <div className="grid grid-cols-2 gap-3">
