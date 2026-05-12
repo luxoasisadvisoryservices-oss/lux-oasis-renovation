@@ -1,12 +1,3 @@
-// ─────────────────────────────────────────────
-// Widgets.jsx — DisclaimerPopup + WhatsApp floating button
-//
-// DisclaimerPopup: shows once per session on arrival
-// Edit: headline and bullet points below
-//
-// WhatsAppFloat: fixed green button bottom-right
-// Edit: href if WhatsApp number changes
-// ─────────────────────────────────────────────
 import { useState, useEffect } from "react";
 
 const WA_SVG = (
@@ -17,64 +8,39 @@ const WA_SVG = (
 
 export function DisclaimerPopup() {
   const [visible, setVisible] = useState(false);
-
   useEffect(() => {
     const seen = sessionStorage.getItem("disclaimer-seen");
     if (!seen) setTimeout(() => setVisible(true), 1200);
   }, []);
-
-  const dismiss = () => {
-    sessionStorage.setItem("disclaimer-seen", "true");
-    setVisible(false);
-  };
-
+  const dismiss = () => { sessionStorage.setItem("disclaimer-seen", "true"); setVisible(false); };
   if (!visible) return null;
-
   return (
     <div className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center p-4 sm:p-8 bg-stone-950/60 backdrop-blur-sm">
-      <div className="relative w-full max-w-lg bg-stone-50 shadow-2xl animate-fade-in">
+      <div className="relative w-full max-w-lg bg-stone-50 shadow-2xl">
         <div className="h-1 w-full bg-gradient-to-r from-amber-800 via-amber-600 to-amber-800" />
         <div className="px-8 py-8">
           <p className="text-[10px] tracking-[0.3em] uppercase text-amber-700 font-medium mb-3">Important Notice</p>
-
-          {/* ── Edit headline here ── */}
           <h3 className="font-display text-2xl text-stone-900 mb-4 leading-snug">
             We manage your project.<br />We are not the contractor.
           </h3>
-
           <p className="text-stone-500 text-sm leading-relaxed mb-3">
-            Lux Oasis Renovation is a{" "}
-            <strong className="text-stone-700 font-medium">project management and coordination company</strong>.
-            We act as your single point of accountability — planning the transformation,
-            selecting the right specialists, and overseeing execution from start to finish.
+            Lux Oasis Renovation is a <strong className="text-stone-700 font-medium">project management and coordination company</strong>. We act as your single point of accountability — planning the transformation, selecting the right specialists, and overseeing execution from start to finish.
           </p>
           <p className="text-stone-500 text-sm leading-relaxed mb-6">
-            All physical works are carried out by qualified third-party contractors and suppliers
-            engaged and managed by us on your behalf. We do not perform construction works directly,
-            and we do not operate as a licensed building contractor.
+            All physical works are carried out by qualified third-party contractors and suppliers engaged and managed by us on your behalf. We do not perform construction works directly, and we do not operate as a licensed building contractor.
           </p>
-
           <div className="border-t border-stone-200 pt-5 mb-6">
-            {/* ── Edit bullet points here ── */}
-            {[
-              "You engage Lux Oasis Renovation as your project manager",
-              "We source, brief, and oversee all contractors and suppliers",
-              "You receive one point of contact and full project accountability",
-            ].map((item) => (
+            {["You engage Lux Oasis Renovation as your project manager","We source, brief, and oversee all contractors and suppliers","You receive one point of contact and full project accountability"].map((item) => (
               <div key={item} className="flex items-start gap-2.5 mb-2.5">
                 <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-amber-700 flex-shrink-0" />
                 <p className="text-stone-600 text-sm">{item}</p>
               </div>
             ))}
           </div>
-
-          <button onClick={dismiss}
-            className="w-full bg-amber-800 text-stone-50 py-3.5 text-sm font-medium tracking-wide hover:bg-amber-900 transition-colors">
+          <button onClick={dismiss} className="w-full bg-amber-800 text-stone-50 py-3.5 text-sm font-medium tracking-wide hover:bg-amber-900 transition-colors">
             Understood — Continue to Site
           </button>
-          <p className="text-center text-stone-400 text-xs mt-3">
-            By continuing you confirm you have read this notice.
-          </p>
+          <p className="text-center text-stone-400 text-xs mt-3">By continuing you confirm you have read this notice.</p>
         </div>
       </div>
     </div>
@@ -83,14 +49,8 @@ export function DisclaimerPopup() {
 
 export function WhatsAppFloat() {
   return (
-    /* ── Edit href if WhatsApp number changes ── */
-    <a
-      href="https://wa.me/971585089383"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Chat on WhatsApp"
-      className="fixed bottom-6 right-6 z-[90] w-14 h-14 bg-[#25D366] hover:bg-[#20bc5a] shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 rounded-full flex items-center justify-center"
-    >
+    <a href="https://wa.me/971585089383" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"
+      className="fixed bottom-6 right-6 z-[90] w-14 h-14 bg-[#25D366] hover:bg-[#20bc5a] shadow-lg hover:scale-110 transition-all duration-300 rounded-full flex items-center justify-center">
       {WA_SVG}
     </a>
   );
