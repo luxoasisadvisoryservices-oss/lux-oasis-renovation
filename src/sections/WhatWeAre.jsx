@@ -1,7 +1,3 @@
-// ─────────────────────────────────────────────
-// WhatWeAre.jsx
-// Edit: "What We Provide" and "Outside Our Scope" bullet lists below
-// ─────────────────────────────────────────────
 import { SectionHeading } from "../components/shared";
 
 const weProvide = [
