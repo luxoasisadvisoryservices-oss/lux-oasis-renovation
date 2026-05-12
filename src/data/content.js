@@ -37,6 +37,7 @@ export const projects = [
     beforeAfter: [],
     video: null,
     youtubeId: "8PLFECfQ2EM",
+    youtubeBeforeAfterId: "APMC-d9v7Vo",
   },
   {
     id: "holiday-home-1",
@@ -62,6 +63,7 @@ export const projects = [
     beforeAfter: [],
     video: null,
     youtubeId: null,
+    youtubeBeforeAfterId: null,
   },
   {
     id: "holiday-home-2",
@@ -87,6 +89,7 @@ export const projects = [
     beforeAfter: [],
     video: null,
     youtubeId: null,
+    youtubeBeforeAfterId: null,
   },
   {
     id: "marina-unit",
@@ -112,6 +115,7 @@ export const projects = [
     beforeAfter: [],
     video: null,
     youtubeId: null,
+    youtubeBeforeAfterId: null,
   },
 ];
 
