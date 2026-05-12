@@ -18,7 +18,7 @@ export default function Navbar({ scrolled }) {
       <nav className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? "bg-stone-50/95 backdrop-blur-md shadow-sm border-b border-stone-100" : "bg-transparent"}`}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <a href="#">
-            <img src="/Logo.jpg" alt="Lux Oasis Interiors & Renovation" className="h-12 w-auto" />
+            <img src="/Logo.jpg" alt="Lux Oasis Interiors & Renovation" className="h-16 w-auto" />
           </a>
           <div className="hidden md:flex items-center gap-8 text-sm">
             {["Services","Projects","Process","Ecosystem","FAQ"].map((item) => (
