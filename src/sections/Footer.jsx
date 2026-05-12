@@ -9,7 +9,13 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
           <div className="md:col-span-1">
-            <img src="/Logo.jpg" alt="Lux Oasis Renovation" className="h-14 w-auto mb-4" />
+            <div className="flex items-center gap-3 mb-4">
+              <img src="/Logo.jpg" alt="Lux Oasis Interiors & Renovation" className="h-14 w-auto" />
+              <div className="flex flex-col leading-tight">
+                <span className="font-display text-lg text-stone-100 tracking-tight">Lux Oasis</span>
+                <span className="text-[10px] tracking-[0.25em] uppercase text-amber-600 font-medium">Interiors & Renovation</span>
+              </div>
+            </div>
             <p className="text-stone-500 text-sm leading-relaxed max-w-xs">Strategic renovation project management for Dubai property owners, investors, and STR operators.</p>
           </div>
           <div>
@@ -54,7 +60,7 @@ export default function Footer() {
         </div>
         <div className="pt-8 border-t border-stone-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-stone-600">
           <p>© {new Date().getFullYear()} Lux Oasis Advisory & Services LLC. All rights reserved.</p>
-          <p>Lux Oasis Renovation is a trading division of Lux Oasis Advisory & Services LLC. Dubai, UAE.</p>
+          <p>Lux Oasis Interiors & Renovation is a trading division of Lux Oasis Advisory & Services LLC. Dubai, UAE.</p>
         </div>
       </div>
     </footer>
