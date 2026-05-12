@@ -1,4 +1,3 @@
-cat > src/App.jsx << 'ENDOFFILE'
 import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import { DisclaimerPopup, WhatsAppFloat } from "./components/Widgets";
@@ -45,4 +44,3 @@ export default function App() {
     </div>
   );
 }
-ENDOFFILE
