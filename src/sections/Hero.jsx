@@ -1,20 +1,12 @@
-// ─────────────────────────────────────────────
-// Hero.jsx
-// Edit: headline, subheadline, trust markers
-// Hero image: upload to /public/images/greens/hero.jpg
-// ─────────────────────────────────────────────
-import { CTAButton, ProjectImage } from "./shared";
+import { CTAButton, ProjectImage } from "../components/shared";
 
 export default function Hero() {
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-stone-900">
-
-      {/* ── HERO IMAGE — upload your best shot to /public/images/greens/hero.jpg ── */}
       <div className="absolute inset-0">
         <ProjectImage src="/images/greens/hero.jpg" alt="Lux Oasis Renovation" className="w-full h-full" lazy={false} />
         <div className="absolute inset-0 bg-gradient-to-r from-stone-900/90 via-stone-900/60 to-stone-900/20" />
       </div>
-
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-24">
         <div className="max-w-2xl">
           <p className="text-amber-300 text-xs tracking-[0.3em] uppercase font-medium mb-6 animate-fade-in">
