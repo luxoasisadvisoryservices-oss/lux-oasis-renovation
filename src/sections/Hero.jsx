@@ -4,8 +4,8 @@ export default function Hero() {
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-stone-900">
       <div className="absolute inset-0">
-        <ProjectImage src="/images/greens/hero.jpg" alt="Lux Oasis Renovation" className="w-full h-full" lazy={false} />
-        <div className="absolute inset-0 bg-gradient-to-r from-stone-900/90 via-stone-900/60 to-stone-900/20" />
+        <ProjectImage src="/images/hero.jpg" alt="Lux Oasis Renovation" className="w-full h-full" lazy={false} />
+        <div className="absolute inset-0 bg-gradient-to-br from-stone-900/75 via-stone-800/50 to-stone-700/40 backdrop-blur-[2px]" />
       </div>
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-24">
         <div className="max-w-2xl">
@@ -15,7 +15,7 @@ export default function Hero() {
           <h1 className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-stone-50 leading-[1.05] mb-6">
             Properties<br /><span className="text-amber-200">Transformed</span><br />with Purpose.
           </h1>
-          <p className="text-stone-300 text-lg md:text-xl leading-relaxed mb-10 max-w-xl">
+          <p className="text-stone-200 text-lg md:text-xl leading-relaxed mb-10 max-w-xl">
             Strategic renovation coordination for Dubai's holiday home owners, investors, and landlords.
             We manage the entire transformation — so you receive the outcome, not the complexity.
           </p>
@@ -23,10 +23,10 @@ export default function Hero() {
             <CTAButton href="#contact">Book a Consultation</CTAButton>
             <CTAButton href="#projects" variant="outlineLight">View Past Projects</CTAButton>
           </div>
-          <div className="mt-14 pt-8 border-t border-stone-700 flex flex-wrap gap-8">
+          <div className="mt-14 pt-8 border-t border-stone-500/50 flex flex-wrap gap-8">
             {["STR-Focused Strategy", "Investor-Led Thinking", "Dubai Market Specialists"].map((marker) => (
-              <div key={marker} className="flex items-center gap-2.5 text-stone-400 text-sm">
-                <span className="w-1 h-1 rounded-full bg-amber-500 flex-shrink-0" />
+              <div key={marker} className="flex items-center gap-2.5 text-stone-300 text-sm">
+                <span className="w-1 h-1 rounded-full bg-amber-400 flex-shrink-0" />
                 {marker}
               </div>
             ))}
