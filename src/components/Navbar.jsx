@@ -17,8 +17,12 @@ export default function Navbar({ scrolled }) {
       </div>
       <nav className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? "bg-stone-50/95 backdrop-blur-md shadow-sm border-b border-stone-100" : "bg-transparent"}`}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <a href="#">
+          <a href="#" className="flex items-center gap-3">
             <img src="/Logo.jpg" alt="Lux Oasis Interiors & Renovation" className="h-16 w-auto" />
+            <div className="flex flex-col leading-tight">
+              <span className="font-display text-lg text-stone-900 tracking-tight">Lux Oasis</span>
+              <span className="text-[10px] tracking-[0.25em] uppercase text-amber-700 font-medium">Interiors & Renovation</span>
+            </div>
           </a>
           <div className="hidden md:flex items-center gap-8 text-sm">
             {["Services","Projects","Process","Ecosystem","FAQ"].map((item) => (
