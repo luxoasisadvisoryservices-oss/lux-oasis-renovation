@@ -17,7 +17,7 @@ export const projects = [
     title: "The Greens — Investment Flip",
     type: "Full Renovation & Resale",
     location: "The Greens, Dubai",
-    tags: ["Personal Flip", "Value Appreciation", "High-End Redesign", "Investment Exit"],
+    tags: ["Personal Flip", "42% Value Appreciation", "27% ROI", "Investment Exit"],
     narrative: "A personal investment project — acquired, fully redesigned, and sold with strong value appreciation. The Greens apartment was transformed from a dated unit into a premium, design-led product that outperformed the surrounding market on resale. Every renovation decision was driven by a clear investment thesis: spend intelligently, differentiate visually, and exit at a premium.",
     improvements: [
       "Full high-end modern redesign across all spaces",
@@ -26,7 +26,7 @@ export const projects = [
       "Bedroom and bathroom upgrades aligned to resale buyer expectations",
       "Material and finish selections calibrated for value appreciation, not personal preference",
     ],
-    strategicNote: "This project delivered significant value appreciation above acquisition cost. The renovation strategy was built around resale positioning from day one — identifying the right upgrades, executing with precision, and presenting the finished product for maximum market impact.",
+    strategicNote: "The project delivered a 42% appreciation above purchase price and a 27% return on total investment including renovation costs. A renovation budget of under 12% of purchase price unlocked outsized resale value — proof that intelligent, targeted upgrades outperform broad spending every time.",
     heroImage: "/images/hero.jpg",
     images: [
       { src: "/images/kitchen.jpg", label: "Kitchen" },
