@@ -1,7 +1,3 @@
-// ─────────────────────────────────────────────
-// CTA.jsx
-// Edit: headline, subtext, email, WhatsApp link
-// ─────────────────────────────────────────────
 import { CTAButton } from "../components/shared";
 
 const WA_ICON = (
@@ -18,25 +14,16 @@ export default function CTA() {
       </div>
       <div className="relative max-w-4xl mx-auto px-6 text-center">
         <p className="text-amber-400 text-xs tracking-[0.3em] uppercase font-medium mb-6">Start the Conversation</p>
-
-        {/* ── Edit headline here ── */}
         <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-stone-50 leading-tight mb-6">
           Your property has more<br />potential than it's showing.
         </h2>
         <p className="text-stone-400 text-lg leading-relaxed max-w-xl mx-auto mb-12">
-          Whether you're preparing a unit for short-term rental, positioning it for sale,
-          or simply ready to invest in a stronger product — we're here to manage the transformation.
+          Whether you're preparing a unit for short-term rental, positioning it for sale, or simply ready to invest in a stronger product — we're here to manage the transformation.
         </p>
-
         <div className="flex flex-wrap gap-4 justify-center">
-          {/* ── Edit email here ── */}
           <CTAButton href="mailto:info@luxoasisadvisory.com">Request a Consultation</CTAButton>
-          {/* ── Edit WhatsApp number here ── */}
-          <CTAButton href="https://wa.me/971585089383" variant="outlineLight">
-            {WA_ICON} WhatsApp Us
-          </CTAButton>
+          <CTAButton href="https://wa.me/971585089383" variant="outlineLight">{WA_ICON} WhatsApp Us</CTAButton>
         </div>
-
         <div className="mt-14 pt-8 border-t border-stone-800 flex flex-wrap gap-8 justify-center">
           {[
             { label: "Email", value: "info@luxoasisadvisory.com", href: "mailto:info@luxoasisadvisory.com" },
@@ -47,9 +34,7 @@ export default function CTA() {
               <p className="text-stone-500 text-xs tracking-widest uppercase mb-1">{item.label}</p>
               {item.href ? (
                 <a href={item.href} target={item.href.startsWith("https://wa") ? "_blank" : undefined}
-                  rel="noopener noreferrer" className="text-stone-300 text-sm hover:text-amber-300 transition-colors">
-                  {item.value}
-                </a>
+                  rel="noopener noreferrer" className="text-stone-300 text-sm hover:text-amber-300 transition-colors">{item.value}</a>
               ) : (
                 <p className="text-stone-300 text-sm">{item.value}</p>
               )}
