@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { CTAButton } from "./shared";
 
+const EMAIL_LINK = "mailto:info@luxoasisadvisory.com?subject=Renovation%20Project%20Enquiry&body=Hi%20Lux%20Oasis%2C%0A%0AI%27m%20interested%20in%20discussing%20a%20renovation%20project.%0A%0AProperty%20location%3A%0AProject%20type%3A%0ATimeline%3A%0A%0AThank%20you";
+
 export default function Navbar({ scrolled }) {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
@@ -28,7 +30,13 @@ export default function Navbar({ scrolled }) {
             {["Services","Projects","Process","Ecosystem","FAQ"].map((item) => (
               <a key={item} href={`#${item.toLowerCase()}`} className="text-stone-500 hover:text-stone-900 transition-colors tracking-wide">{item}</a>
             ))}
-            <CTAButton href="#contact" small>Book Consultation</CTAButton>
+            {/* Book Consultation — opens email directly with pre-filled message */}
+            
+              href={EMAIL_LINK}
+              className="inline-flex items-center gap-2 font-medium tracking-wide transition-all duration-300 px-5 py-2.5 text-sm bg-amber-800 text-stone-50 hover:bg-amber-900 hover:-translate-y-0.5 shadow-lg hover:shadow-amber-900/30"
+            >
+              Book Consultation
+            </a>
           </div>
           <button className="md:hidden text-stone-700 p-1" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -42,7 +50,12 @@ export default function Navbar({ scrolled }) {
               <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}
                 className="text-stone-600 hover:text-stone-900 text-sm tracking-wide py-1 border-b border-stone-100">{item}</a>
             ))}
-            <CTAButton href="#contact" small onClick={() => setMenuOpen(false)}>Book Consultation</CTAButton>
+            
+              href={EMAIL_LINK}
+              className="inline-flex items-center justify-center font-medium tracking-wide transition-all duration-300 px-5 py-2.5 text-sm bg-amber-800 text-stone-50 hover:bg-amber-900"
+            >
+              Book Consultation
+            </a>
           </div>
         )}
       </nav>
