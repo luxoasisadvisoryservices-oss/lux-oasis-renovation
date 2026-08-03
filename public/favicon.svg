@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" fill="#1c1917"/>
-  <!-- Stylised LO monogram -->
-  <text x="10" y="46" font-family="Georgia, serif" font-size="36" font-weight="300" fill="#b5892e" letter-spacing="-2">LO</text>
-  <!-- Gold underline accent -->
-  <line x1="10" y1="52" x2="54" y2="52" stroke="#b5892e" stroke-width="2"/>
-</svg>
