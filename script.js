@@ -207,6 +207,39 @@
     baFig.addEventListener("pointercancel", function () { baDragging = false; });
     baPaint();
   }
+
+  /* ---------- real projects: YouTube lite-embed facades ----------
+     Authored as plain links to the watch pages (the no-JS state). With JS
+     each link is swapped for a real <button>, so activation is keyboard-
+     native, and the YouTube iframe is only created when the visitor asks
+     for it — nothing from YouTube loads before that click. */
+  var rpFrames = document.querySelectorAll(".rp-frame");
+  Array.prototype.forEach.call(rpFrames, function (frame) {
+    var link = frame.querySelector("a.rp-facade");
+    var id = frame.getAttribute("data-video-id");
+    if (!link || !id) return;
+    var title = frame.getAttribute("data-video-title") || "Project video";
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "rp-facade";
+    btn.setAttribute("aria-label", "Play video: " + title);
+    btn.innerHTML = link.innerHTML;
+    link.parentNode.replaceChild(btn, link);
+
+    btn.addEventListener("click", function () {
+      if (frame.classList.contains("is-playing")) return;
+      var iframe = document.createElement("iframe");
+      iframe.className = "rp-iframe";
+      iframe.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1";
+      iframe.title = title;
+      iframe.setAttribute("allow", "autoplay; encrypted-media");
+      iframe.setAttribute("allowfullscreen", "");
+      frame.appendChild(iframe);
+      frame.classList.add("is-playing");
+      iframe.focus();
+    });
+  });
 })();
 
 /* ============================================================
