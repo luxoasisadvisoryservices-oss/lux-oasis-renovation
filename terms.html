@@ -735,21 +735,34 @@ button.scene-stage.is-active span { color: var(--cobalt-lt); }
 .ba-figure {
   position: relative;
   width: 100%;
-  aspect-ratio: 5 / 3;
+  aspect-ratio: 16 / 10; /* the two Greens frames are 1600×1000 */
   overflow: hidden;
   border: 1px solid var(--rule-strong);
+  background: var(--ink);
   cursor: ew-resize;
   touch-action: none;
   user-select: none;
 }
 .ba-layer { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ba-img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .ba-after { clip-path: inset(0 calc(100% - var(--ba, 52%)) 0 0); }
-.ba-tag {
-  font-family: var(--mono);
-  font-size: 17px;
-  letter-spacing: 0.2em;
+
+/* corner labels — same chip language as the film frames below */
+.ba-label {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #F2EDE5;
+  background: rgba(28, 25, 23, 0.82);
+  border: 1px solid rgba(245, 241, 234, 0.24);
+  padding: 6px 10px;
 }
-.ba-tag--r { text-anchor: end; }
+.ba-label--r { left: auto; right: 14px; }
 
 .ba-divider {
   position: absolute;
@@ -1064,10 +1077,32 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
   max-width: 78ch;
 }
 
-/* pointer from the illustrated slider back up to the real footage */
-.ba-real { margin-top: 10px; font-size: 11.5px; letter-spacing: 0.05em; color: var(--ink-muted); }
-.ba-real a { color: var(--cobalt); border-bottom: 1px solid var(--rule-cobalt); padding-bottom: 1px; }
-.ba-real a:hover { border-color: var(--cobalt); }
+/* ---------- the flip (markup ships commented out until the owner's
+   real figures arrive — see FLIP-CASE-STUDY marker in the partial) ---------- */
+.flip {
+  margin-top: 76px;
+  border: 1px solid var(--rule-strong);
+  background: rgba(255, 255, 255, 0.5);
+  padding: 34px;
+}
+.flip-head { display: flex; flex-wrap: wrap; gap: 20px; align-items: end; justify-content: space-between; margin-bottom: 30px; }
+.flip-h { font-size: clamp(22px, 2.6vw, 30px); letter-spacing: -0.03em; }
+.flip-note { font-size: 11px; letter-spacing: 0.06em; color: var(--ink-muted); max-width: 36ch; }
+
+.flip-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+/* dimension-line stat: cobalt hairline with end ticks, mono key and figure */
+.flip-stat { position: relative; border-top: 1px solid var(--cobalt); padding-top: 16px; }
+.flip-stat::before,
+.flip-stat::after { content: ""; position: absolute; top: -5px; width: 1px; height: 9px; background: var(--cobalt); }
+.flip-stat::before { left: 0; }
+.flip-stat::after { right: 0; }
+.fs-k { font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cobalt); margin-bottom: 10px; }
+.fs-v { font-size: 30px; letter-spacing: -0.02em; font-weight: 500; color: var(--ink); }
+.fs-cur { font-size: 13px; letter-spacing: 0.08em; color: var(--ink-muted); font-weight: 400; }
+
+.flip-payback { margin-top: 26px; border-top: 1px solid var(--rule); padding-top: 16px; font-size: 15px; letter-spacing: 0.02em; color: var(--ink); }
+.flip-payback .fp-k { font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); margin-right: 10px; }
+.flip-foot { margin-top: 14px; font-size: 14px; line-height: 1.7; color: var(--ink-muted); max-width: 78ch; }
 
 /* ---------- responsive ---------- */
 @media (max-width: 767px) {
@@ -1075,6 +1110,8 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
   .rp-grid { grid-template-columns: 1fr; gap: 40px; }
   .rp-play { width: 56px; height: 56px; }
   .rp-watch { left: 10px; bottom: 9px; font-size: 9px; letter-spacing: 0.16em; }
+  .flip { margin-top: 54px; padding: 24px 18px; }
+  .flip-stats { grid-template-columns: 1fr; gap: 22px; }
 }
 /* ============================================================
    BUILT BY OPERATORS
@@ -1427,7 +1464,8 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
   .ba { margin-top: 54px; }
   .ba-figure { aspect-ratio: 4 / 3; }
   .ba-knob { width: 36px; height: 36px; }
-  .ba-tag { font-size: 22px; }
+  .ba-label { left: 10px; bottom: 9px; font-size: 9px; letter-spacing: 0.16em; }
+  .ba-label--r { left: auto; right: 10px; }
 
   .est { padding: 24px 20px; margin-top: 56px; }
   .est-field { grid-template-columns: 1fr 108px; }
