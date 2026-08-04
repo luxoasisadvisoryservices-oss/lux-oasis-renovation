@@ -724,6 +724,64 @@ button.scene-stage.is-active span { color: var(--cobalt-lt); }
 .pf-k { font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--clay-ink); margin-bottom: 10px; }
 .pf-v { font-size: 14.5px; color: var(--ink-muted); }
 /* ============================================================
+   DOES THE OPERATION MAKE SENSE?
+   Numbered rows on thin dividers — the same restrained row language
+   the case study uses, so the two sections read as one argument.
+   ============================================================ */
+.oplist { list-style: none; border-top: 1px solid var(--rule-strong); }
+
+.oprow {
+  display: grid;
+  grid-template-columns: 52px minmax(160px, 13.5rem) 1fr;
+  gap: 0 22px;
+  align-items: baseline;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--rule);
+  transition: background 0.2s var(--ease);
+}
+.oprow:hover { background: rgba(33, 81, 158, 0.032); }
+
+.op-n {
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  color: var(--cobalt);
+  align-self: baseline;
+}
+.op-t { font-size: 17px; letter-spacing: -0.02em; line-height: 1.3; }
+.op-d { font-size: 15.5px; line-height: 1.66; color: var(--ink-muted); max-width: 62ch; }
+
+/* the compliance note: clay rule, because this is a boundary statement */
+.op-foot {
+  margin-top: 34px;
+  border-left: 2px solid var(--clay);
+  padding-left: 16px;
+  max-width: 82ch;
+}
+.op-foot-k {
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--clay-ink);
+  margin-bottom: 8px;
+}
+.op-foot-v { font-size: 14px; line-height: 1.7; color: var(--ink-muted); }
+
+@media (max-width: 860px) {
+  .oprow {
+    grid-template-columns: 44px 1fr;
+    gap: 6px 14px;
+    padding: 20px 0;
+  }
+  .op-n { grid-row: 1; }
+  .op-t { grid-column: 2; }
+  .op-d { grid-column: 2; }
+}
+@media (max-width: 374px) {
+  .oprow { grid-template-columns: 36px 1fr; gap: 5px 10px; }
+  .op-t { font-size: 16px; }
+  .op-d { font-size: 14.5px; }
+}
+/* ============================================================
    WHY IT PAYS — argument cards, before/after, estimator
    ============================================================ */
 .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
@@ -1083,16 +1141,17 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
   max-width: 78ch;
 }
 
-/* ---------- the flip (markup ships commented out until the owner's
-   real figures arrive — see FLIP-CASE-STUDY marker in the partial) ---------- */
+/* ---------- the flip: the group's own completed Greens project ---------- */
 .flip {
   margin-top: 76px;
   border: 1px solid var(--rule-strong);
   background: rgba(255, 255, 255, 0.5);
   padding: 34px;
 }
-.flip-head { display: flex; flex-wrap: wrap; gap: 20px; align-items: end; justify-content: space-between; margin-bottom: 30px; }
+.flip-head { display: flex; flex-wrap: wrap; gap: 20px 34px; align-items: end; justify-content: space-between; margin-bottom: 30px; }
+.flip-head > div { max-width: 60ch; }
 .flip-h { font-size: clamp(22px, 2.6vw, 30px); letter-spacing: -0.03em; }
+.flip-frame { margin-top: 13px; font-size: 15.5px; line-height: 1.62; color: var(--ink-muted); max-width: 54ch; }
 .flip-note { font-size: 11px; letter-spacing: 0.06em; color: var(--ink-muted); max-width: 36ch; }
 
 .flip-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
@@ -1121,14 +1180,16 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
 }
 
 /* ---------------------------------------------------------------- the flip
-   Owner asked for the profit table on the Greens project. Values are empty
-   until he supplies them: `.is-pending` hides the empty value cells and shows
-   a single honest "figures being finalised" line, so the section can ship
-   without ever displaying an invented number. Remove `is-pending` to publish. */
+   Two blocks in one table. Rows 01–08 are what the project cost and how it was
+   financed; rows 09–11 are what came out of it, separated by a heavy rule and
+   set on a slightly deeper plate so the eye reads them as the answer. Row 11
+   (cash-on-cash) is the hero figure and is the largest type on the page.
+   Every figure is hard-coded — nothing here is computed in JS. */
 .flip-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 28px;
+  table-layout: fixed;
 }
 .flip-table th,
 .flip-table td {
@@ -1138,32 +1199,130 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
   text-align: left;
   font-weight: 400;
   color: var(--ink);
+  vertical-align: baseline;
 }
-.flip-table td { text-align: right; white-space: nowrap; }
+/* Hanging indent: the row number sits in its own 35px gutter and a label that
+   wraps lines up under itself instead of running back under the number. */
+/* The number sits in a fixed 35px gutter and the label is an inline-block, so
+   a label that wraps lines up under itself instead of running back under the
+   number. No negative indents — nothing can overhang the table edge. */
+.flip-table th { width: 58%; }
+.flip-table th .ft-n { display: inline-block; width: 23px; margin-right: 12px; vertical-align: top; }
+.flip-table th .ft-l { display: inline-block; vertical-align: top; max-width: calc(100% - 40px); }
+.flip-table td { text-align: right; white-space: nowrap; width: 42%; }
+/* the one value cell that is a sentence, not a figure — it must be free to
+   wrap or it sets a minimum table width wider than a 320px phone */
+.flip-table td.ft-wrap { white-space: normal; }
 .ft-n { color: var(--cobalt); font-size: 11px; letter-spacing: .1em; margin-right: 12px; }
 .ft-cur { font-size: 11px; letter-spacing: .1em; color: var(--ink-muted); margin-right: 4px; }
 .flip-table .ft-sub th, .flip-table .ft-sub td { color: var(--ink-muted); }
-.flip-table .ft-total th, .flip-table .ft-total td {
-  border-bottom: none;
-  border-top: 2px solid var(--ink);
-  font-size: 19px;
-  padding-top: 18px;
+
+/* plain-English gloss under a jargon label, and the financing side note */
+.ft-gloss,
+.ft-side {
+  display: block;
+  margin: 6px 0 0 35px;
+  max-width: 46ch;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-muted);
+  font-weight: 400;
+  letter-spacing: 0;
 }
-.flip-pending {
-  display: none;
-  margin-top: 18px;
-  font-size: 12px;
-  letter-spacing: .06em;
+.ft-side {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  line-height: 1.6;
+  letter-spacing: .02em;
+  color: var(--clay-ink);
+  border-left: 1px solid var(--clay);
+  padding-left: 11px;
+}
+
+/* ---- the results block ---- */
+.ft-results { border-top: 3px solid var(--ink); border-bottom: 1px solid var(--rule-strong); }
+.ft-results th, .ft-results td { background: rgba(33, 81, 158, 0.05); }
+.ft-results .ft-rk th {
+  padding: 15px 0 9px;
+  border-bottom: 0;
+  font-size: 10.5px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
   color: var(--cobalt);
+  width: auto;
 }
-.flip.is-pending .flip-pending { display: block; }
-.flip.is-pending .flip-table td { opacity: .32; }
-.flip.is-pending .flip-table td::after { content: "———"; letter-spacing: .1em; }
-@media (max-width: 560px) {
-  .flip-table th, .flip-table td { font-size: 13.5px; padding: 12px 0; }
-  .flip-table .ft-total th, .flip-table .ft-total td { font-size: 16px; }
+.ft-results tr:last-child th,
+.ft-results tr:last-child td { border-bottom: 0; }
+
+/* 09 net profit — the supporting figure */
+.ft-results tr:nth-child(2) th,
+.ft-results tr:nth-child(2) td { font-size: 21px; letter-spacing: -0.02em; }
+.ft-results tr:nth-child(2) .ft-cur { font-size: 12px; }
+
+/* 11 cash-on-cash — the hero. Deliberately larger than the h1. */
+.flip-table .ft-hero th { font-size: 17px; padding-top: 20px; }
+.flip-table .ft-hero td {
+  font-size: clamp(46px, 6.2vw, 84px);
+  line-height: 1.02;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  color: var(--ink);
+  padding-top: 16px;
+  padding-bottom: 20px;
+  white-space: normal;
 }
-.ft-pct { color: var(--cobalt); font-size: .78em; letter-spacing: .06em; margin-left: 6px; }
+.ft-when {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: .08em;
+  color: var(--ink-muted);
+  margin-left: 12px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.flip-connect {
+  margin-top: 18px;
+  border-top: 1px solid var(--rule);
+  padding-top: 16px;
+  font-size: 15.5px;
+  line-height: 1.66;
+  color: var(--ink);
+  max-width: 72ch;
+}
+
+@media (max-width: 700px) {
+  .flip-table { table-layout: auto; }
+  .flip-table th, .flip-table td { font-size: 14px; padding: 13px 0; width: auto; }
+  /* tighter gutter on a phone, same hanging alignment */
+  .flip-table th { padding-right: 14px; }
+  .flip-table th .ft-n { width: 21px; margin-right: 9px; }
+  .flip-table th .ft-l { max-width: calc(100% - 35px); }
+  .ft-gloss, .ft-side { margin-left: 30px; font-size: 12.5px; max-width: none; }
+  .ft-side { font-size: 11px; margin-top: 8px; }
+  .ft-results tr:nth-child(2) th,
+  .ft-results tr:nth-child(2) td { font-size: 18px; }
+
+  /* The hero row stays a normal two-cell row so its tinted plate spans the
+     full table width and the figure right-aligns with every other figure;
+     only "in 3 months" drops beneath the number. */
+  .flip-table .ft-hero th { font-size: 15.5px; padding-top: 16px; }
+  .flip-table .ft-hero td { padding-top: 10px; padding-bottom: 16px; }
+  .ft-when { display: block; margin: 2px 0 0; font-size: 12px; }
+
+  /* the one sentence-valued cell: hold the TEXT to a sensible measure so it
+     does not starve the label column. The cell itself stays a table-cell, or
+     its bottom border detaches from the rest of the row. */
+  .flip-table td.ft-wrap { font-size: 13px; }
+  .ft-vw { display: inline-block; max-width: 17ch; text-align: right; vertical-align: top; }
+}
+@media (max-width: 374px) {
+  .flip-table th, .flip-table td { font-size: 13.5px; }
+  .flip-table th .ft-n { width: 18px; margin-right: 8px; }
+  .flip-table th .ft-l { max-width: calc(100% - 31px); }
+  .ft-gloss, .ft-side { margin-left: 26px; }
+}
 /* ============================================================
    BUILT BY OPERATORS
    ============================================================ */
@@ -1313,8 +1472,21 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
 .footer-col a { font-size: 14px; color: var(--paper-muted); transition: color 0.16s var(--ease); }
 .footer-col a:hover { color: #F7F3EC; }
 
+/* the compliance boundary, stated once in full at the foot of every page */
+.footer-compliance {
+  margin-top: 22px;
+  font-size: 12.5px;
+  line-height: 1.66;
+  color: var(--paper-muted);
+  max-width: 88ch;
+  border-left: 2px solid rgba(176, 130, 98, 0.7);
+  padding-left: 14px;
+}
+
 .footer-bottom {
   padding-top: 24px;
+  margin-top: 22px;
+  border-top: 1px solid var(--rule-ink);
   display: flex;
   flex-wrap: wrap;
   gap: 12px 26px;

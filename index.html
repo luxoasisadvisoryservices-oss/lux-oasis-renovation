@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lux Oasis Interiors &amp; Renovation — Dubai Renovation Project Management</title>
-  <meta name="description" content="Premium renovation project management for Dubai property investors, holiday home owners, and STR operators">
+  <meta name="description" content="Premium renovation project management for Dubai property investors, holiday home owners, and STR operators — by people who flip properties with their own money. We manage the works, and we know when a flip makes sense.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://luxoasisrenovations.com/">
   <!-- Open Graph -->
@@ -15,7 +15,7 @@
   <meta property="og:locale" content="en_AE">
   <meta property="og:site_name" content="Lux Oasis Interiors &amp; Renovation">
   <meta property="og:title" content="Lux Oasis Interiors &amp; Renovation — Dubai Renovation Project Management">
-  <meta property="og:description" content="Premium renovation project management for Dubai property investors, holiday home owners, and STR operators">
+  <meta property="og:description" content="Premium renovation project management for Dubai property investors, holiday home owners, and STR operators — by people who flip properties with their own money. We manage the works, and we know when a flip makes sense.">
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Lux Oasis Interiors &amp; Renovation — Dubai Renovation Project Management">
@@ -729,6 +729,64 @@ button.scene-stage.is-active span { color: var(--cobalt-lt); }
 .pf-k { font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--clay-ink); margin-bottom: 10px; }
 .pf-v { font-size: 14.5px; color: var(--ink-muted); }
 /* ============================================================
+   DOES THE OPERATION MAKE SENSE?
+   Numbered rows on thin dividers — the same restrained row language
+   the case study uses, so the two sections read as one argument.
+   ============================================================ */
+.oplist { list-style: none; border-top: 1px solid var(--rule-strong); }
+
+.oprow {
+  display: grid;
+  grid-template-columns: 52px minmax(160px, 13.5rem) 1fr;
+  gap: 0 22px;
+  align-items: baseline;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--rule);
+  transition: background 0.2s var(--ease);
+}
+.oprow:hover { background: rgba(33, 81, 158, 0.032); }
+
+.op-n {
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  color: var(--cobalt);
+  align-self: baseline;
+}
+.op-t { font-size: 17px; letter-spacing: -0.02em; line-height: 1.3; }
+.op-d { font-size: 15.5px; line-height: 1.66; color: var(--ink-muted); max-width: 62ch; }
+
+/* the compliance note: clay rule, because this is a boundary statement */
+.op-foot {
+  margin-top: 34px;
+  border-left: 2px solid var(--clay);
+  padding-left: 16px;
+  max-width: 82ch;
+}
+.op-foot-k {
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--clay-ink);
+  margin-bottom: 8px;
+}
+.op-foot-v { font-size: 14px; line-height: 1.7; color: var(--ink-muted); }
+
+@media (max-width: 860px) {
+  .oprow {
+    grid-template-columns: 44px 1fr;
+    gap: 6px 14px;
+    padding: 20px 0;
+  }
+  .op-n { grid-row: 1; }
+  .op-t { grid-column: 2; }
+  .op-d { grid-column: 2; }
+}
+@media (max-width: 374px) {
+  .oprow { grid-template-columns: 36px 1fr; gap: 5px 10px; }
+  .op-t { font-size: 16px; }
+  .op-d { font-size: 14.5px; }
+}
+/* ============================================================
    WHY IT PAYS — argument cards, before/after, estimator
    ============================================================ */
 .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
@@ -1088,16 +1146,17 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
   max-width: 78ch;
 }
 
-/* ---------- the flip (markup ships commented out until the owner's
-   real figures arrive — see FLIP-CASE-STUDY marker in the partial) ---------- */
+/* ---------- the flip: the group's own completed Greens project ---------- */
 .flip {
   margin-top: 76px;
   border: 1px solid var(--rule-strong);
   background: rgba(255, 255, 255, 0.5);
   padding: 34px;
 }
-.flip-head { display: flex; flex-wrap: wrap; gap: 20px; align-items: end; justify-content: space-between; margin-bottom: 30px; }
+.flip-head { display: flex; flex-wrap: wrap; gap: 20px 34px; align-items: end; justify-content: space-between; margin-bottom: 30px; }
+.flip-head > div { max-width: 60ch; }
 .flip-h { font-size: clamp(22px, 2.6vw, 30px); letter-spacing: -0.03em; }
+.flip-frame { margin-top: 13px; font-size: 15.5px; line-height: 1.62; color: var(--ink-muted); max-width: 54ch; }
 .flip-note { font-size: 11px; letter-spacing: 0.06em; color: var(--ink-muted); max-width: 36ch; }
 
 .flip-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
@@ -1126,14 +1185,16 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
 }
 
 /* ---------------------------------------------------------------- the flip
-   Owner asked for the profit table on the Greens project. Values are empty
-   until he supplies them: `.is-pending` hides the empty value cells and shows
-   a single honest "figures being finalised" line, so the section can ship
-   without ever displaying an invented number. Remove `is-pending` to publish. */
+   Two blocks in one table. Rows 01–08 are what the project cost and how it was
+   financed; rows 09–11 are what came out of it, separated by a heavy rule and
+   set on a slightly deeper plate so the eye reads them as the answer. Row 11
+   (cash-on-cash) is the hero figure and is the largest type on the page.
+   Every figure is hard-coded — nothing here is computed in JS. */
 .flip-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 28px;
+  table-layout: fixed;
 }
 .flip-table th,
 .flip-table td {
@@ -1143,32 +1204,130 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
   text-align: left;
   font-weight: 400;
   color: var(--ink);
+  vertical-align: baseline;
 }
-.flip-table td { text-align: right; white-space: nowrap; }
+/* Hanging indent: the row number sits in its own 35px gutter and a label that
+   wraps lines up under itself instead of running back under the number. */
+/* The number sits in a fixed 35px gutter and the label is an inline-block, so
+   a label that wraps lines up under itself instead of running back under the
+   number. No negative indents — nothing can overhang the table edge. */
+.flip-table th { width: 58%; }
+.flip-table th .ft-n { display: inline-block; width: 23px; margin-right: 12px; vertical-align: top; }
+.flip-table th .ft-l { display: inline-block; vertical-align: top; max-width: calc(100% - 40px); }
+.flip-table td { text-align: right; white-space: nowrap; width: 42%; }
+/* the one value cell that is a sentence, not a figure — it must be free to
+   wrap or it sets a minimum table width wider than a 320px phone */
+.flip-table td.ft-wrap { white-space: normal; }
 .ft-n { color: var(--cobalt); font-size: 11px; letter-spacing: .1em; margin-right: 12px; }
 .ft-cur { font-size: 11px; letter-spacing: .1em; color: var(--ink-muted); margin-right: 4px; }
 .flip-table .ft-sub th, .flip-table .ft-sub td { color: var(--ink-muted); }
-.flip-table .ft-total th, .flip-table .ft-total td {
-  border-bottom: none;
-  border-top: 2px solid var(--ink);
-  font-size: 19px;
-  padding-top: 18px;
+
+/* plain-English gloss under a jargon label, and the financing side note */
+.ft-gloss,
+.ft-side {
+  display: block;
+  margin: 6px 0 0 35px;
+  max-width: 46ch;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-muted);
+  font-weight: 400;
+  letter-spacing: 0;
 }
-.flip-pending {
-  display: none;
-  margin-top: 18px;
-  font-size: 12px;
-  letter-spacing: .06em;
+.ft-side {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  line-height: 1.6;
+  letter-spacing: .02em;
+  color: var(--clay-ink);
+  border-left: 1px solid var(--clay);
+  padding-left: 11px;
+}
+
+/* ---- the results block ---- */
+.ft-results { border-top: 3px solid var(--ink); border-bottom: 1px solid var(--rule-strong); }
+.ft-results th, .ft-results td { background: rgba(33, 81, 158, 0.05); }
+.ft-results .ft-rk th {
+  padding: 15px 0 9px;
+  border-bottom: 0;
+  font-size: 10.5px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
   color: var(--cobalt);
+  width: auto;
 }
-.flip.is-pending .flip-pending { display: block; }
-.flip.is-pending .flip-table td { opacity: .32; }
-.flip.is-pending .flip-table td::after { content: "———"; letter-spacing: .1em; }
-@media (max-width: 560px) {
-  .flip-table th, .flip-table td { font-size: 13.5px; padding: 12px 0; }
-  .flip-table .ft-total th, .flip-table .ft-total td { font-size: 16px; }
+.ft-results tr:last-child th,
+.ft-results tr:last-child td { border-bottom: 0; }
+
+/* 09 net profit — the supporting figure */
+.ft-results tr:nth-child(2) th,
+.ft-results tr:nth-child(2) td { font-size: 21px; letter-spacing: -0.02em; }
+.ft-results tr:nth-child(2) .ft-cur { font-size: 12px; }
+
+/* 11 cash-on-cash — the hero. Deliberately larger than the h1. */
+.flip-table .ft-hero th { font-size: 17px; padding-top: 20px; }
+.flip-table .ft-hero td {
+  font-size: clamp(46px, 6.2vw, 84px);
+  line-height: 1.02;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  color: var(--ink);
+  padding-top: 16px;
+  padding-bottom: 20px;
+  white-space: normal;
 }
-.ft-pct { color: var(--cobalt); font-size: .78em; letter-spacing: .06em; margin-left: 6px; }
+.ft-when {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: .08em;
+  color: var(--ink-muted);
+  margin-left: 12px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.flip-connect {
+  margin-top: 18px;
+  border-top: 1px solid var(--rule);
+  padding-top: 16px;
+  font-size: 15.5px;
+  line-height: 1.66;
+  color: var(--ink);
+  max-width: 72ch;
+}
+
+@media (max-width: 700px) {
+  .flip-table { table-layout: auto; }
+  .flip-table th, .flip-table td { font-size: 14px; padding: 13px 0; width: auto; }
+  /* tighter gutter on a phone, same hanging alignment */
+  .flip-table th { padding-right: 14px; }
+  .flip-table th .ft-n { width: 21px; margin-right: 9px; }
+  .flip-table th .ft-l { max-width: calc(100% - 35px); }
+  .ft-gloss, .ft-side { margin-left: 30px; font-size: 12.5px; max-width: none; }
+  .ft-side { font-size: 11px; margin-top: 8px; }
+  .ft-results tr:nth-child(2) th,
+  .ft-results tr:nth-child(2) td { font-size: 18px; }
+
+  /* The hero row stays a normal two-cell row so its tinted plate spans the
+     full table width and the figure right-aligns with every other figure;
+     only "in 3 months" drops beneath the number. */
+  .flip-table .ft-hero th { font-size: 15.5px; padding-top: 16px; }
+  .flip-table .ft-hero td { padding-top: 10px; padding-bottom: 16px; }
+  .ft-when { display: block; margin: 2px 0 0; font-size: 12px; }
+
+  /* the one sentence-valued cell: hold the TEXT to a sensible measure so it
+     does not starve the label column. The cell itself stays a table-cell, or
+     its bottom border detaches from the rest of the row. */
+  .flip-table td.ft-wrap { font-size: 13px; }
+  .ft-vw { display: inline-block; max-width: 17ch; text-align: right; vertical-align: top; }
+}
+@media (max-width: 374px) {
+  .flip-table th, .flip-table td { font-size: 13.5px; }
+  .flip-table th .ft-n { width: 18px; margin-right: 8px; }
+  .flip-table th .ft-l { max-width: calc(100% - 31px); }
+  .ft-gloss, .ft-side { margin-left: 26px; }
+}
 /* ============================================================
    BUILT BY OPERATORS
    ============================================================ */
@@ -1318,8 +1477,21 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
 .footer-col a { font-size: 14px; color: var(--paper-muted); transition: color 0.16s var(--ease); }
 .footer-col a:hover { color: #F7F3EC; }
 
+/* the compliance boundary, stated once in full at the foot of every page */
+.footer-compliance {
+  margin-top: 22px;
+  font-size: 12.5px;
+  line-height: 1.66;
+  color: var(--paper-muted);
+  max-width: 88ch;
+  border-left: 2px solid rgba(176, 130, 98, 0.7);
+  padding-left: 14px;
+}
+
 .footer-bottom {
   padding-top: 24px;
+  margin-top: 22px;
+  border-top: 1px solid var(--rule-ink);
   display: flex;
   flex-wrap: wrap;
   gap: 12px 26px;
@@ -1672,9 +1844,8 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
 
     <p class="hero-sub">
       Premium renovation project management for Dubai property investors, holiday home owners
-      and short-term-rental operators. We run the project end to end — scope, design direction,
-      contractor selection, permits, procurement, site coordination and handover — so the work
-      lands on brief and the unit is ready to let.
+      and short-term-rental operators — by people who flip properties with their own money.
+      We manage the works end to end, and we know when a flip makes sense — and when it doesn&rsquo;t.
     </p>
 
     <p class="hero-note mono">
@@ -2292,6 +2463,63 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
   </div>
 </section>
 
+<!-- ============ DOES THE OPERATION MAKE SENSE? ============ -->
+<!-- Commercial judgement on a renovation project, offered alongside the project
+     management. It is NOT financing, mortgage advice or any other financial
+     service, and the compliance note at the foot of this section says so
+     plainly. Do not add anything here that could read as a financial offering. -->
+<section class="section section--paper" id="the-operation" aria-labelledby="op-h2">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Before you buy</p>
+      <h2 id="op-h2">We tell you if the flip works.</h2>
+      <p class="lead">Alongside project management, we assess the operation itself. We walk the property with
+        you and give a straight answer: what is worth doing, what it can resell for in this market, and
+        whether the margin is really there.</p>
+    </div>
+
+    <ol class="oplist">
+      <li class="oprow reveal">
+        <span class="op-n mono">01</span>
+        <h3 class="op-t">Property walkthrough</h3>
+        <p class="op-d">We view the unit with you: layout, condition, building, what buyers in that community
+          pay for.</p>
+      </li>
+      <li class="oprow reveal">
+        <span class="op-n mono">02</span>
+        <h3 class="op-t">Scope of works</h3>
+        <p class="op-d">What to renovate and what to leave alone, so every dirham of works adds more than a
+          dirham of resale value.</p>
+      </li>
+      <li class="oprow reveal">
+        <span class="op-n mono">03</span>
+        <h3 class="op-t">Realistic resale</h3>
+        <p class="op-d">What the finished unit will actually sell for, based on comparable transactions, not
+          optimistic listings.</p>
+      </li>
+      <li class="oprow reveal">
+        <span class="op-n mono">04</span>
+        <h3 class="op-t">The margin</h3>
+        <p class="op-d">All operation costs against the realistic resale price. Either the numbers work or they
+          don&rsquo;t.</p>
+      </li>
+      <li class="oprow reveal">
+        <span class="op-n mono">05</span>
+        <h3 class="op-t">Go / no-go</h3>
+        <p class="op-d">If the flip does not make sense, we say so before you buy. That is part of the
+          service.</p>
+      </li>
+    </ol>
+
+    <div class="op-foot reveal">
+      <p class="op-foot-k mono">What this is, and what it is not</p>
+      <p class="op-foot-v">This is commercial judgement on a renovation project, formed the same way we form it
+        on our own units. It is not financial advice, not investment advice and not a valuation, and we do not
+        provide or arrange financing or mortgages of any kind.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ============ WHY IT PAYS ============ -->
 <section class="section section--paper" id="why-it-pays" aria-labelledby="why-h2">
   <div class="container">
@@ -2431,16 +2659,20 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
         The full figures for that flip are set out below.</p>
     </div>
 
-    <!-- ---------- the flip : hidden until the owner's real figures arrive ---------- -->
-    <!-- THE FLIP — the Greens, real owner figures (from his own project sheet,
-         row "GREENS AL THALYIA 1 UNIT — final case"). Every line reconciles:
+    <!-- ---------- the flip : the group's own completed Greens project ---------- -->
+    <!-- THE FLIP — the Greens, the owner's real figures from his own project
+         sheet. Every line reconciles, and the owner has verified them:
            1,020,000 purchase + 13,260 purchase costs + 133,000 renovation
-           = 1,166,260 total invested   (matches the sheet exactly)
-           net profit 130,003 = 11.1% of 1,166,260  (matches the sheet exactly)
-         The 130,003 is the sheet's own net figure, i.e. AFTER transaction,
-         finance and holding costs — not the raw 208,740 spread between total
-         invested and resale. Stated that way in the footnote so the table can
-         never be read as overclaiming.
+             = 1,166,260 total project cost
+           204,000 (20% down) + 13,260 + 133,000 = 350,260 capital deployed
+           130,003 net profit / 1,166,260 = 11.1%  (return on total project cost)
+           130,003 net profit /   350,260 = 37.1%  (cash-on-cash)
+         The 130,003 is the sheet's own NET figure — after transaction, finance
+         and holding costs. The gross spread between the two prices is
+         deliberately never shown: it would overstate the result.
+         Two rules from the owner, do not break them:
+           1. never publish an annualised version of the 37.1%;
+           2. never present any of this as financing or financial advice.
          TO CHANGE A FIGURE: edit the value here only; nothing is computed in JS. -->
 
     <div class="flip reveal" id="the-flip">
@@ -2448,44 +2680,91 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
         <div>
           <p class="eyebrow">The Greens &mdash; the flip</p>
           <h3 class="flip-h">Bought, renovated, resold.</h3>
+          <p class="flip-frame">Most flip marketing shows gross spreads and projections. This is a completed
+            transaction, net of everything.</p>
         </div>
         <p class="flip-note mono">The group&rsquo;s own figures from the Greens project &mdash; a real example, not a model.</p>
       </div>
 
       <table class="flip-table">
-        <caption class="sr-only">The Greens flip: purchase, renovation investment, total invested, resale and net profit</caption>
-        <tbody>
+        <caption class="sr-only">The Greens flip: costs, financing and duration, then the result of the
+          completed sale</caption>
+
+        <tbody class="ft-costs">
           <tr>
-            <th scope="row"><span class="ft-n mono">01</span> Purchase price</th>
+            <th scope="row"><span class="ft-n mono">01</span> <span class="ft-l">Purchase price</span></th>
             <td class="mono"><span class="ft-cur">AED</span> 1,020,000</td>
           </tr>
           <tr>
-            <th scope="row"><span class="ft-n mono">02</span> Purchase costs</th>
+            <th scope="row"><span class="ft-n mono">02</span> <span class="ft-l">Purchase costs</span></th>
             <td class="mono"><span class="ft-cur">AED</span> 13,260</td>
           </tr>
           <tr>
-            <th scope="row"><span class="ft-n mono">03</span> Renovation investment</th>
+            <th scope="row"><span class="ft-n mono">03</span> <span class="ft-l">Renovation investment</span></th>
             <td class="mono"><span class="ft-cur">AED</span> 133,000</td>
           </tr>
           <tr class="ft-sub">
-            <th scope="row"><span class="ft-n mono">04</span> Total invested</th>
+            <th scope="row"><span class="ft-n mono">04</span> <span class="ft-l">Total project cost</span></th>
             <td class="mono"><span class="ft-cur">AED</span> 1,166,260</td>
           </tr>
           <tr>
-            <th scope="row"><span class="ft-n mono">05</span> Resale price</th>
+            <th scope="row">
+              <span class="ft-n mono">05</span> Financing
+              <span class="ft-side mono">How we financed our own deal. We do not provide or arrange financing.</span>
+            </th>
+            <td class="mono ft-wrap"><span class="ft-vw">80% bank mortgage / 20% down</span></td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <span class="ft-n mono">06</span> <span class="ft-l">Capital deployed (own cash)</span>
+              <span class="ft-gloss">the money we actually put in &mdash; the 20% down payment of AED 204,000,
+                plus the purchase costs and the renovation</span>
+            </th>
+            <td class="mono"><span class="ft-cur">AED</span> 350,260</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="ft-n mono">07</span> <span class="ft-l">Project duration</span></th>
+            <td class="mono">3 months</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="ft-n mono">08</span> <span class="ft-l">Resale price</span></th>
             <td class="mono"><span class="ft-cur">AED</span> 1,375,000</td>
           </tr>
-          <tr class="ft-total">
-            <th scope="row"><span class="ft-n mono">06</span> Net profit</th>
-            <td class="mono"><span class="ft-cur">AED</span> 130,003 <span class="ft-pct">&middot; 11.1%</span></td>
+        </tbody>
+
+        <!-- the results block: heavy rule above it, so it reads as the answer
+             rather than as three more line items -->
+        <tbody class="ft-results">
+          <tr class="ft-rk">
+            <th scope="col" colspan="2" class="mono">Result &mdash; after every cost</th>
+          </tr>
+          <tr>
+            <th scope="row"><span class="ft-n mono">09</span> <span class="ft-l">Net profit</span></th>
+            <td class="mono"><span class="ft-cur">AED</span> 130,003</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="ft-n mono">10</span> <span class="ft-l">Return on total project cost</span></th>
+            <td class="mono">11.1%</td>
+          </tr>
+          <tr class="ft-hero">
+            <th scope="row">
+              <span class="ft-n mono">11</span> <span class="ft-l">Cash-on-cash return</span>
+              <span class="ft-gloss">profit measured against the money we actually put in, not the full
+                property price</span>
+            </th>
+            <td class="mono">37.1% <span class="ft-when">in 3 months</span></td>
           </tr>
         </tbody>
       </table>
 
-      <p class="flip-foot">One unit in The Greens: acquired by the group, renovated under the process on
-        this page, then resold. These are the project&rsquo;s actual figures. Net profit is stated after
-        transaction, finance and holding costs, not as the gross difference between the two prices.
-        Figures for one completed project; they are not a forecast of what another property will return.</p>
+      <p class="flip-foot">One unit in The Greens: acquired with 80% bank financing, renovated under the
+        process on this page, and resold within 3 months. Net profit is stated after transaction, finance and
+        holding costs, not as the gross difference between the two prices. Figures are from one completed
+        project and are not a forecast of what another property will return. We do not provide financial or
+        financing advice.</p>
+
+      <p class="flip-connect">The Greens was assessed with the same judgement we offer clients, and managed
+        under the renovation process above.</p>
     </div>
 
     <!-- ---------- estimator ---------- -->
@@ -2611,6 +2890,12 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
           somebody has to price it, photograph it, list it, clean it between guests and answer for it in
           reviews. The specification is written by people who will live with the consequences of it, and the
           same group handles the revenue and guest operations on its own units once they are open.</p>
+        <p class="ops-body">It also changes what we can tell you before a purchase. The group buys, renovates
+          and resells units with its own money — the Greens project set out above is one of them — so when we
+          walk a property with you we are judging the operation the way we judge our own: what the works
+          should cost, what the finished unit realistically resells for, and whether the margin survives it.
+          That is commercial judgement from doing it, not financial advice; we do not provide or arrange
+          financing of any kind.</p>
         <p class="ops-body">This is a standalone service line. You do not need to use anything else the group
           does to work with us on a renovation.</p>
         <a class="text-link text-link--ink" href="https://luxoasisadvisory.com" target="_blank" rel="noopener">
@@ -2642,7 +2927,8 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
           <div><dt>Entity</dt><dd>Lux Oasis Advisory &amp; Services LLC</dd></div>
           <div><dt>TRN</dt><dd>104722180700003</dd></div>
           <div><dt>Role</dt><dd>Renovation project management</dd></div>
-          <div><dt>Not</dt><dd>A contracting company</dd></div>
+          <div><dt>Also</dt><dd>We flip units with our own money</dd></div>
+          <div><dt>Not</dt><dd>A contracting company, and not a financial adviser</dd></div>
         </dl>
       </div>
     </div>
@@ -2715,7 +3001,20 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
       </details>
 
       <details class="faq-item reveal">
-        <summary><span class="faq-no mono">06</span>Who is behind Lux Oasis Interiors &amp; Renovation?</summary>
+        <summary><span class="faq-no mono">06</span>Can you tell us whether a flip is worth doing?</summary>
+        <div class="faq-body">
+          <p>Yes, and it sits alongside the project management. We walk the property with you and give a view
+            on what is worth renovating, what the finished unit realistically resells for against comparable
+            transactions, and whether the margin survives all of the costs. If it does not, we say so before
+            you buy.</p>
+          <p>That view comes from doing it with our own money — the Greens project on this page is one of
+            ours. It is commercial judgement on a renovation project, not financial or investment advice and
+            not a valuation, and we do not provide, arrange or introduce financing or mortgages.</p>
+        </div>
+      </details>
+
+      <details class="faq-item reveal">
+        <summary><span class="faq-no mono">07</span>Who is behind Lux Oasis Interiors &amp; Renovation?</summary>
         <div class="faq-body">
           <p>It is operated by Lux Oasis Advisory &amp; Services LLC, TRN 104722180700003 — the same group that
             runs a DTCM-licensed short-term rental portfolio in JBR, Dubai Marina and Downtown Dubai.</p>
@@ -2726,8 +3025,9 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
       </details>
     </div>
 
-    <p class="faq-foot reveal">Costs and durations are not listed anywhere on this page on purpose. Both depend
-      entirely on scope, and a number invented for a website would be wrong for your unit.
+    <p class="faq-foot reveal">There is no price list and no typical duration on this page on purpose. Both
+      depend entirely on scope, and a number invented for a website would be wrong for your unit. The Greens
+      figures above are what one completed project of our own actually did — not a quote, and not a forecast.
       <a class="text-link" href="https://wa.me/971585089283" target="_blank" rel="noopener">Ask us properly
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
@@ -2781,7 +3081,9 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
                width="91" height="76" loading="lazy">
         </a>
         <p class="footer-blurb">Renovation project management for Dubai property investors, holiday home owners
-          and short-term-rental operators. We run the project; licensed contractors carry out the works.</p>
+          and short-term-rental operators — by people who flip properties with their own money. We run the
+          project; licensed contractors carry out the works. And we will tell you when a flip does not make
+          sense.</p>
         <a class="footer-division" href="https://luxoasisadvisory.com" target="_blank" rel="noopener">
           A division of Lux Oasis Advisory &amp; Services LLC
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
@@ -2804,6 +3106,7 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
           <li><a href="#the-unit">From shell to guest-ready</a></li>
           <li><a href="#what-we-do">What we do</a></li>
           <li><a href="#how-it-works">How a project runs</a></li>
+          <li><a href="#the-operation">Does the flip work?</a></li>
           <li><a href="#why-it-pays">Why it pays</a></li>
         </ul>
       </nav>
@@ -2811,6 +3114,7 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
         <h4 class="mono">Tools</h4>
         <ul>
           <li><a href="#estimator">Payback estimator</a></li>
+          <li><a href="#the-flip">The Greens flip</a></li>
           <li><a href="#operators">Built by operators</a></li>
           <li><a href="#faq">Questions we get asked</a></li>
           <li><a href="#contact">Contact</a></li>
@@ -2825,6 +3129,10 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
         </ul>
       </nav>
     </div>
+
+    <p class="footer-compliance">We provide renovation project management and commercial judgement on
+      renovation projects. We do not provide financial advice, investment advice, mortgage advice or
+      financing of any kind.</p>
 
     <div class="footer-bottom">
       <p>© 2026 Lux Oasis Advisory &amp; Services LLC. All rights reserved.</p>
