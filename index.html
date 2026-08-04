@@ -1168,6 +1168,7 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
   .flip-table th, .flip-table td { font-size: 13.5px; padding: 12px 0; }
   .flip-table .ft-total th, .flip-table .ft-total td { font-size: 16px; }
 }
+.ft-pct { color: var(--cobalt); font-size: .78em; letter-spacing: .06em; margin-left: 6px; }
 /* ============================================================
    BUILT BY OPERATORS
    ============================================================ */
@@ -2426,21 +2427,23 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
       </div>
 
       <p class="rp-foot">The Greens unit belongs to the group&rsquo;s own portfolio: renovated under this exact
-        process, then furnished, priced and operated by the group itself. A detailed resell case study
-        &mdash; with the figures &mdash; is being added to this page.</p>
+        process, then furnished, priced and operated by the group itself &mdash; and finally resold.
+        The full figures for that flip are set out below.</p>
     </div>
 
     <!-- ---------- the flip : hidden until the owner's real figures arrive ---------- -->
-    <!-- THE FLIP — the Greens as a flipping project.
-         Owner asked for the full profit table: what we paid, renovation cost,
-         the upside, what we sold for, what we made. The five value slots are
-         EMPTY on purpose and each row is marked data-pending until the owner
-         supplies his real figures — the section renders as a clearly-labelled
-         "figures being finalised" state rather than showing invented numbers.
-         TO PUBLISH: drop the real values into the five <span data-value> slots
-         and delete the class "is-pending" from .flip below. Nothing else. -->
+    <!-- THE FLIP — the Greens, real owner figures (from his own project sheet,
+         row "GREENS AL THALYIA 1 UNIT — final case"). Every line reconciles:
+           1,020,000 purchase + 13,260 purchase costs + 133,000 renovation
+           = 1,166,260 total invested   (matches the sheet exactly)
+           net profit 130,003 = 11.1% of 1,166,260  (matches the sheet exactly)
+         The 130,003 is the sheet's own net figure, i.e. AFTER transaction,
+         finance and holding costs — not the raw 208,740 spread between total
+         invested and resale. Stated that way in the footnote so the table can
+         never be read as overclaiming.
+         TO CHANGE A FIGURE: edit the value here only; nothing is computed in JS. -->
 
-    <div class="flip reveal is-pending" id="the-flip">
+    <div class="flip reveal" id="the-flip">
       <div class="flip-head">
         <div>
           <p class="eyebrow">The Greens &mdash; the flip</p>
@@ -2450,35 +2453,39 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
       </div>
 
       <table class="flip-table">
-        <caption class="sr-only">The Greens flip: acquisition, renovation investment, uplift, resale and profit</caption>
+        <caption class="sr-only">The Greens flip: purchase, renovation investment, total invested, resale and net profit</caption>
         <tbody>
           <tr>
             <th scope="row"><span class="ft-n mono">01</span> Purchase price</th>
-            <td class="mono"><span class="ft-cur">AED</span> <span data-value="acquired"></span></td>
+            <td class="mono"><span class="ft-cur">AED</span> 1,020,000</td>
           </tr>
           <tr>
-            <th scope="row"><span class="ft-n mono">02</span> Renovation investment</th>
-            <td class="mono"><span class="ft-cur">AED</span> <span data-value="investment"></span></td>
+            <th scope="row"><span class="ft-n mono">02</span> Purchase costs</th>
+            <td class="mono"><span class="ft-cur">AED</span> 13,260</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="ft-n mono">03</span> Renovation investment</th>
+            <td class="mono"><span class="ft-cur">AED</span> 133,000</td>
           </tr>
           <tr class="ft-sub">
-            <th scope="row"><span class="ft-n mono">03</span> Total in</th>
-            <td class="mono"><span class="ft-cur">AED</span> <span data-value="totalin"></span></td>
+            <th scope="row"><span class="ft-n mono">04</span> Total invested</th>
+            <td class="mono"><span class="ft-cur">AED</span> 1,166,260</td>
           </tr>
           <tr>
-            <th scope="row"><span class="ft-n mono">04</span> Resale price</th>
-            <td class="mono"><span class="ft-cur">AED</span> <span data-value="resold"></span></td>
+            <th scope="row"><span class="ft-n mono">05</span> Resale price</th>
+            <td class="mono"><span class="ft-cur">AED</span> 1,375,000</td>
           </tr>
           <tr class="ft-total">
-            <th scope="row"><span class="ft-n mono">05</span> Profit on the flip</th>
-            <td class="mono"><span class="ft-cur">AED</span> <span data-value="profit"></span></td>
+            <th scope="row"><span class="ft-n mono">06</span> Net profit</th>
+            <td class="mono"><span class="ft-cur">AED</span> 130,003 <span class="ft-pct">&middot; 11.1%</span></td>
           </tr>
         </tbody>
       </table>
 
-      <p class="flip-pending mono">Figures being finalised &mdash; the completed numbers for this project are published here shortly.</p>
-
-      <p class="flip-foot">The same Greens unit shown above: acquired by the group, renovated under the
-        process on this page, then resold. When published, these are the actual project figures, not projections.</p>
+      <p class="flip-foot">One unit in The Greens: acquired by the group, renovated under the process on
+        this page, then resold. These are the project&rsquo;s actual figures. Net profit is stated after
+        transaction, finance and holding costs, not as the gross difference between the two prices.
+        Figures for one completed project; they are not a forecast of what another property will return.</p>
     </div>
 
     <!-- ---------- estimator ---------- -->

@@ -1137,6 +1137,7 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
   .flip-table th, .flip-table td { font-size: 13.5px; padding: 12px 0; }
   .flip-table .ft-total th, .flip-table .ft-total td { font-size: 16px; }
 }
+.ft-pct { color: var(--cobalt); font-size: .78em; letter-spacing: .06em; margin-left: 6px; }
 /* ============================================================
    BUILT BY OPERATORS
    ============================================================ */
