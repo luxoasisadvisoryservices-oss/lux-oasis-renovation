@@ -175,6 +175,12 @@ h3 { font-size: 19px; letter-spacing: -0.02em; }
 .text-link:hover { gap: 11px; border-color: var(--cobalt); }
 .text-link--ink { color: var(--cobalt-lt); border-color: rgba(94, 142, 214, 0.4); }
 .text-link--ink:hover { border-color: var(--cobalt-lt); }
+
+/* visually hidden, still announced (used by the flip table caption) */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
 /* ============================================================
    HEADER
    ============================================================ */
@@ -1086,6 +1092,50 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
   .rp-watch { left: 10px; bottom: 9px; font-size: 9px; letter-spacing: 0.16em; }
   .flip { margin-top: 54px; padding: 24px 18px; }
   .flip-stats { grid-template-columns: 1fr; gap: 22px; }
+}
+
+/* ---------------------------------------------------------------- the flip
+   Owner asked for the profit table on the Greens project. Values are empty
+   until he supplies them: `.is-pending` hides the empty value cells and shows
+   a single honest "figures being finalised" line, so the section can ship
+   without ever displaying an invented number. Remove `is-pending` to publish. */
+.flip-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 28px;
+}
+.flip-table th,
+.flip-table td {
+  padding: 15px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 15px;
+  text-align: left;
+  font-weight: 400;
+  color: var(--ink);
+}
+.flip-table td { text-align: right; white-space: nowrap; }
+.ft-n { color: var(--cobalt); font-size: 11px; letter-spacing: .1em; margin-right: 12px; }
+.ft-cur { font-size: 11px; letter-spacing: .1em; color: var(--ink-muted); margin-right: 4px; }
+.flip-table .ft-sub th, .flip-table .ft-sub td { color: var(--ink-muted); }
+.flip-table .ft-total th, .flip-table .ft-total td {
+  border-bottom: none;
+  border-top: 2px solid var(--ink);
+  font-size: 19px;
+  padding-top: 18px;
+}
+.flip-pending {
+  display: none;
+  margin-top: 18px;
+  font-size: 12px;
+  letter-spacing: .06em;
+  color: var(--cobalt);
+}
+.flip.is-pending .flip-pending { display: block; }
+.flip.is-pending .flip-table td { opacity: .32; }
+.flip.is-pending .flip-table td::after { content: "———"; letter-spacing: .1em; }
+@media (max-width: 560px) {
+  .flip-table th, .flip-table td { font-size: 13.5px; padding: 12px 0; }
+  .flip-table .ft-total th, .flip-table .ft-total td { font-size: 16px; }
 }
 /* ============================================================
    BUILT BY OPERATORS
