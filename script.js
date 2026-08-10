@@ -246,15 +246,36 @@
    MOTION ENGINE — scroll choreography.
    One rAF loop, scroll position read once per frame, every animation
    driven through transform / opacity / attribute writes only.
-   Pinned scrub scenes run only when motion is allowed and the viewport
-   is 768px or wider. Everywhere else the page renders its finished,
-   fully readable static state.
+
+   Two engines, one set of visual states:
+
+     sceneMode  (>= 768px)  the pinned, scroll-scrubbed scenes. A tall
+                block, a sticky inner frame, progress read from scrollY.
+     stepsMode  (<  768px)  the same states played on a short timer from
+                the moment a scene arrives (scripts/80-mobile-scenes.js).
+                Reading position selects the scene; time plays it.
+
+   Scrubbing is deliberately NOT enabled on a phone: a sticky frame
+   fights the browser chrome collapsing mid-gesture, and a pinned scene
+   means several swipes produce no page movement, which reads as broken.
+
+   With reduced motion, or with JS off, neither runs and the page renders
+   its finished, fully readable static state.
+
+   The mode is decided once at load — and identically in the inline
+   script in partials/00-head.html, so the state classes are on the
+   element before first paint. Resizing across 768px keeps the current
+   mode until reload.
    ============================================================ */
 (function () {
   "use strict";
 
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var sceneMode = !reduced && window.innerWidth >= 768 && "requestAnimationFrame" in window;
+  /* the phone engine needs IntersectionObserver; without it the page simply
+     keeps its static final states, which are complete and readable */
+  var stepsMode = !reduced && window.innerWidth < 768 &&
+                  "requestAnimationFrame" in window && "IntersectionObserver" in window;
 
   function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
   function band(p, start, width) { return clamp01((p - start) / width); }
@@ -661,6 +682,14 @@
      (small screens, reduced motion). Room names then stay on the drawing,
      because there is no scrub to reveal them. */
   var rmStaticFinal = false;
+  /* The scrub owns the progress rail and the stage copy: it derives the
+     current stage from p, i.e. "which band is the scrub inside". The phone
+     engine works the other way round — the stage is chosen first and p is
+     tweened to it — and its targets sit at the END of each band, which is
+     the start of the next one. So it takes ownership of the stage classes
+     by clearing this, and rmUpdate leaves them alone. Always true on the
+     desktop, where nothing else writes them. */
+  var rmDriveStages = true;
 
   var RM_STAGES = [0, 0.20, 0.42, 0.63, 0.83, 1.0];
 
@@ -809,6 +838,7 @@
     }
 
     /* progress indicator */
+    if (!rmDriveStages) return;
     if (rmRailFill) rmRailFill.style.transform = "scaleX(" + p.toFixed(4) + ")";
     if (rmPctEl) rmPctEl.textContent = (p * 100 < 10 ? "0" : "") + Math.round(p * 100) + "%";
     var si = 0;
@@ -891,7 +921,272 @@
     if (!ticking) { ticking = true; requestAnimationFrame(frame); }
   }
 
+  /* ============================================================
+     PHONE CHOREOGRAPHY (html.js-steps, below 768px)
+
+     The desktop scenes are pinned and scroll-scrubbed. Below 768px that
+     engine never runs and this one does instead. It drives the SAME
+     visual states — the flagship drawing's own progress number, the
+     .is-active / .is-done stage classes, .is-lit on the seven programme
+     phases, the programme rule's scaleX — but reading position only
+     decides WHICH scene plays. Time then walks the states inside it,
+     once, and the scene rests on its last state. Nothing loops and
+     nothing replays on a second pass.
+
+     Rules kept: passive listeners, every play-once observer disconnects
+     as soon as its scene has fired, and nothing here is scheduled under
+     prefers-reduced-motion or without JS — in both of those cases the
+     static final states are already correct.
+     ============================================================ */
+
+  /* fire `run` the first time `el` is on screen, then stop watching it */
+  function playOnce(el, ratio, run) {
+    if (!el) return;
+    var io = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (!entries[i].isIntersecting) continue;
+        io.disconnect();
+        run();
+        return;
+      }
+    }, { threshold: ratio, rootMargin: "0px 0px -8% 0px" });
+    io.observe(el);
+  }
+
+  function stepFlag(el, cls, on) { if (el) el.classList.toggle(cls, !!on); }
+
+  /* ---------- THE FLAGSHIP, ON A PHONE ----------
+     "From shell to guest-ready" is the whole proposition of a renovation
+     business, so the one thing a phone must not be handed is the finished
+     drawing with the transformation removed. The scrub is gone; the five
+     stages stay, as a snapping track with a dot index.
+
+     The drawing itself is driven by exactly the same rmUpdate(p) the
+     desktop scrub calls, so nothing about the build is reimplemented
+     here: only where p comes from changes. Each stage is the progress at
+     which that stage's work has finished, which is why the drawing
+     genuinely walks all five states rather than cutting between two.
+
+     It auto-advances from arrival so the unit builds itself unprompted;
+     the first touch on the track or a dot hands control over for good,
+     and going back re-runs the build in reverse — the shell becoming
+     guest-ready again is the thing a visitor will want to watch twice. */
+
+  /* 01 blueprint drawn · 02 walls up · 03 fit-out in · 04 furniture in · 05 warm */
+  var RM_STEP_P = [0.206, 0.435, 0.645, 0.865, 1.0];
+  var RM_FIRST  = 1500;   /* the plan drawing itself deserves a little longer */
+  var RM_TWEEN  = 1150;   /* ms to build one stage */
+  var RM_DWELL  = 900;    /* ms resting on it before the next begins */
+
+  function rmStepsRun() {
+    var track = document.querySelector(".scene-copy");
+    var cards = Array.prototype.slice.call(document.querySelectorAll(".scene-copy-card"));
+    var dots  = Array.prototype.slice.call(document.querySelectorAll(".scene-dot"));
+    var stage = document.querySelector(".scene-stage-box");
+    if (!rmWrap || !track || !stage || cards.length !== RM_STEP_P.length) return false;
+    /* rmInit fails only if the generated drawing and the model have drifted
+       apart; the caller then restores the finished drawing + static list */
+    if (!rmInit()) return false;
+
+    /* on a phone this track IS the stage copy, not a decorative duplicate of
+       the static list underneath — which .js-scene has just hidden */
+    track.removeAttribute("aria-hidden");
+    /* the stage a visitor has chosen is the truth here, not the band p happens
+       to be inside, so this engine owns the stage classes (see 52-scene-render) */
+    rmDriveStages = false;
+
+    var idx = -1;
+    var p = 0;
+    var auto = true;
+    var armed = false;          /* the drawing waits below the fold at p = 0 */
+    var timer = null;
+    var raf = null;
+    var landed = null;
+    var syncing = false;
+
+    function stopAuto() {
+      auto = false;
+      if (timer) { window.clearTimeout(timer); timer = null; }
+      /* the thumb is the source of truth from here on: never yank the track
+         back to a position this engine chose */
+      if (landed) { window.clearTimeout(landed); landed = null; syncing = false; }
+    }
+
+    function tweenTo(target, dur) {
+      if (raf) { window.cancelAnimationFrame(raf); raf = null; }
+      var from = p;
+      var delta = target - from;
+      if (Math.abs(delta) < 0.0005) { p = target; rmUpdate(p); return; }
+      var t0 = null;
+      function beat(ts) {
+        if (t0 === null) t0 = ts;
+        var q = clamp01((ts - t0) / dur);
+        var e = q < 0.5 ? 4 * q * q * q : 1 - Math.pow(-2 * q + 2, 3) / 2;
+        p = from + delta * e;
+        rmUpdate(p);
+        if (q < 1) { raf = window.requestAnimationFrame(beat); }
+        else { raf = null; p = target; rmUpdate(p); }
+      }
+      raf = window.requestAnimationFrame(beat);
+    }
+
+    /* marks a stage everywhere — card, dot, drawing — without moving the
+       track; the track calls this from its own scroll handler */
+    function mark(i, dur) {
+      if (i === idx) return;
+      idx = i;
+      cards.forEach(function (c, k) { stepFlag(c, "is-active", k === i); });
+      dots.forEach(function (d, k) {
+        stepFlag(d, "on", k === i);
+        d.setAttribute("aria-current", k === i ? "step" : "false");
+      });
+      if (armed) tweenTo(RM_STEP_P[i], dur || RM_TWEEN);
+    }
+
+    /* snap position of card i as the scroll container sees it: card 0 sits at
+       scrollLeft 0 because scroll-padding matches the track's own gutter */
+    function pos(i) { return cards[i].offsetLeft - cards[0].offsetLeft; }
+
+    function scrollToCard(i) {
+      if (!cards[i]) return;
+      syncing = true;
+      if (track.scrollTo) track.scrollTo({ left: pos(i), behavior: "smooth" });
+      else track.scrollLeft = pos(i);
+      /* A smooth scroll on a nested scroller can be dropped when the page is
+         scrolling underneath it — which is exactly what happens while the
+         visitor is still travelling towards this section. If the track has
+         not arrived by the time the animation should be over, put it there,
+         so the card, the dot and the drawing can never disagree. */
+      window.clearTimeout(landed);
+      landed = window.setTimeout(function () {
+        landed = null;
+        if (idx === i && Math.abs(track.scrollLeft - pos(i)) > 4) track.scrollLeft = pos(i);
+        syncing = false;
+      }, 620);
+    }
+
+    function go(i, scroll) {
+      mark(i);
+      if (scroll) scrollToCard(i);
+    }
+
+    function queue(delay) {
+      if (!auto) return;
+      timer = window.setTimeout(function () {
+        timer = null;
+        if (!auto || idx >= cards.length - 1) return;
+        go(idx + 1, true);
+        queue();
+      }, delay || (RM_TWEEN + RM_DWELL));
+    }
+
+    /* the card whose snap position is nearest the current scroll is current */
+    function syncFromTrack() {
+      if (syncing) return;
+      var x = track.scrollLeft;
+      var best = 0, bestD = Infinity, i, d;
+      for (i = 0; i < cards.length; i++) {
+        d = Math.abs(pos(i) - x);
+        if (d < bestD) { bestD = d; best = i; }
+      }
+      mark(best);
+    }
+
+    var tick = false;
+    track.addEventListener("scroll", function () {
+      if (tick) return;
+      tick = true;
+      window.requestAnimationFrame(function () { tick = false; syncFromTrack(); });
+    }, { passive: true });
+
+    /* any touch on the track is the visitor taking over, permanently */
+    track.addEventListener("pointerdown", stopAuto, { passive: true });
+    track.addEventListener("touchstart", stopAuto, { passive: true });
+
+    /* A viewport resize — an orientation change, or the mobile browser's
+       chrome collapsing mid-scroll — makes a mandatory-snap container
+       re-snap itself, and the scroll event that follows would otherwise be
+       read as the visitor choosing a different stage and drag the drawing
+       backwards. The stage that is currently selected is the truth: ignore
+       the re-snap and hold the track to it. */
+    var resizeT = null;
+    function holdTrack() {
+      if (idx >= 0 && Math.abs(track.scrollLeft - pos(idx)) > 4) track.scrollLeft = pos(idx);
+    }
+    window.addEventListener("resize", function () {
+      syncing = true;
+      /* immediately, so the re-snap is never even painted, and again once the
+         resize has stopped, because a chrome collapse arrives as a burst */
+      holdTrack();
+      window.clearTimeout(resizeT);
+      resizeT = window.setTimeout(function () {
+        resizeT = null;
+        holdTrack();
+        syncing = false;
+      }, 260);
+    }, { passive: true });
+
+    dots.forEach(function (dot, i) {
+      dot.addEventListener("click", function () { stopAuto(); go(i, true); });
+    });
+
+    mark(0);
+    track.scrollLeft = 0;
+    rmUpdate(0);
+    /* the drawing stays an empty sheet until the box is actually on screen, so
+       the plan draws itself in front of the visitor instead of having already
+       been drawn while it was below the fold */
+    playOnce(stage, 0.55, function () {
+      armed = true;
+      tweenTo(RM_STEP_P[0], RM_FIRST);
+      queue(RM_FIRST + RM_DWELL);
+    });
+    return true;
+  }
+
+  /* ---------- HOW A PROJECT RUNS, ON A PHONE ----------
+     Desktop scrubs the programme line across the seven phases as they pass.
+     On a phone the list is a single column a screen and a half tall, so the
+     meaning that carries is the same movement down the ladder: the rule
+     draws itself once when the section arrives, and each phase marker lights
+     as that phase comes on screen. Same .is-lit class the scrub drives. */
+  function phaseStepsRun() {
+    if (!phaseScene) return;
+    playOnce(phaseScene, 0.05, function () {
+      if (phaseRule) phaseRule.style.transform = "scaleX(1)";
+    });
+    if (!phaseNodes.length) return;
+    var pio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        pio.unobserve(el);
+        /* a short stagger off the phase's own index keeps the list reading as
+           one movement down the programme rather than seven separate pops */
+        var i = phaseNodes.indexOf(el);
+        window.setTimeout(function () { el.classList.add("is-lit"); }, Math.min(i, 3) * 90);
+      });
+    }, { threshold: 0.34, rootMargin: "0px 0px -6% 0px" });
+    phaseNodes.forEach(function (n) { pio.observe(n); });
+  }
+
   /* ---------------- boot ---------------- */
+
+  /* Phone: reading position selects the scene, time plays it. No pin, no
+     scrub, no rAF loop against scrollY — see scripts/80-mobile-scenes.js. */
+  if (stepsMode) {
+    if (!rmStepsRun()) {
+      /* the generated drawing and the model have drifted apart: put the
+         finished drawing and the static stage list back rather than
+         animating nonsense */
+      if (rmWrap) rmWrap.classList.add("rm-fallback");
+      if (rmInit()) { rmStaticFinal = true; rmUpdate(1); }
+    }
+    phaseStepsRun();
+    heroIntro();
+    return;
+  }
+
   var sceneReady = rmInit();
 
   if (!sceneMode) {
@@ -906,6 +1201,7 @@
   }
 
   document.documentElement.classList.add("js-scenes");
+  document.documentElement.classList.add("js-scene");
 
   addScene(sceneReady ? rmWrap : null, "pin", rmUpdate);
   addScene(phaseScene, "view", phaseUpdate);
