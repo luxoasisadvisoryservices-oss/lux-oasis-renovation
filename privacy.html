@@ -1606,6 +1606,115 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
 .legal-card p:last-child { margin-bottom: 0; }
 .legal-back { margin-top: 40px; }
 /* ============================================================
+   LEGAL DOCUMENTS — elements used by the full document set
+   (cookies.html, tools.html and the longer terms.html).
+   Scoped to .legal-body so nothing else moves.
+   ============================================================ */
+
+.legal-body h3 {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 24px 0 10px;
+  color: var(--ink);
+}
+.legal-body h4 {
+  font-size: 14.5px;
+  font-weight: 600;
+  margin: 20px 0 8px;
+  color: var(--ink-body);
+}
+.legal-body ol { margin: 8px 0 12px 22px; }
+.legal-body ol li { font-size: 15.5px; color: var(--ink-muted); margin-bottom: 8px; }
+.legal-body blockquote {
+  margin: 16px 0;
+  padding: 2px 0 2px 18px;
+  border-left: 3px solid var(--cobalt);
+}
+.legal-body blockquote p:last-child { margin-bottom: 0; }
+.legal-body hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 32px 0;
+}
+.legal-body code {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  word-break: break-word;
+  color: var(--ink-muted);
+}
+.legal-body .legal-flag {
+  background: #FBEFC0;
+  color: var(--ink);
+  padding: 1px 4px;
+}
+.legal-body .legal-choices { list-style: none; margin-left: 0; }
+.legal-body .legal-choices li {
+  position: relative;
+  padding-left: 26px;
+}
+.legal-body .legal-choices li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 4px;
+  width: 13px; height: 13px;
+  border: 1.5px solid var(--cobalt);
+}
+
+/* Tables. The wrapper scrolls on a phone rather than forcing the page wide. */
+.legal-table-wrap {
+  margin: 18px 0 22px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.legal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 1.65;
+  min-width: 460px;
+}
+.legal-table th,
+.legal-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 10px 13px;
+  border: 1px solid var(--rule);
+  color: var(--ink-muted);
+}
+.legal-table thead th {
+  background: var(--paper-2);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.legal-table tbody tr:nth-child(even) td { background: rgba(0, 0, 0, 0.014); }
+
+@media (max-width: 640px) {
+  .legal-table { font-size: 13px; min-width: 380px; }
+  .legal-table th, .legal-table td { padding: 8px 10px; }
+}
+
+/* ---------- legal document index ----------
+   A client landing on any legal page can see and reach every other document
+   for that service. The documents stay separately versioned, which is why
+   this is a set of links rather than one merged page. */
+.legal-nav { margin: 0 0 8px; padding: 26px 0 4px; }
+.legal-nav-head { font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; opacity: .62; margin: 0 0 14px; }
+.legal-nav-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: currentColor; border: 1px solid; border-radius: 10px; overflow: hidden; }
+.legal-nav-item { margin: 0; padding: 0; background: var(--paper, #fff); }
+.legal-nav-item > a, .legal-nav-item.is-current { display: block; padding: 14px 16px; text-decoration: none; color: inherit; }
+.legal-nav-item > a:hover { background: rgba(127,127,127,.08); }
+.legal-nav-name { display: block; font-weight: 600; font-size: .96rem; }
+.legal-nav-desc { display: block; font-size: .86rem; opacity: .68; margin-top: 3px; line-height: 1.45; }
+.legal-nav-item.is-current { opacity: .72; }
+.legal-nav-here { display: inline-block; margin-top: 5px; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; opacity: .7; }
+.legal-nav-foot { font-size: .84rem; opacity: .62; margin: 12px 0 0; line-height: 1.5; }
+@media (max-width: 767px) { .legal-nav { padding-top: 18px; } .legal-nav-desc { font-size: .82rem; } }
+/* ============================================================
    SCROLL REVEAL
    ============================================================ */
 .reveal {
@@ -1954,99 +2063,155 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
     <div class="container">
       <p class="eyebrow">Legal</p>
       <h1>Privacy Policy</h1>
-      <p class="legal-meta">Lux Oasis Interiors &amp; Renovation · A division of Lux Oasis Advisory &amp; Services LLC</p>
+      <p class="legal-meta"> · Lux Oasis Interiors &amp; Renovation · A division of Lux Oasis Advisory &amp; Services LLC</p>
     </div>
   </div>
 
+
+    <nav class="legal-nav" aria-label="Legal documents">
+      <div class="container">
+        <p class="legal-nav-head">The legal documents for this service</p>
+        <ul class="legal-nav-list">
+          <li class="legal-nav-item"><a href="terms.html"><span class="legal-nav-name">Terms of Engagement</span><span class="legal-nav-desc">How a project runs: the agency model, contractors, variations, handover, defects.</span></a></li>
+          <li class="legal-nav-item is-current"><span class="legal-nav-name">Privacy Policy</span><span class="legal-nav-desc">What we do with your data, and who we share it with on a project.</span><span class="legal-nav-here">You are here</span></li>
+          <li class="legal-nav-item"><a href="tools.html"><span class="legal-nav-name">Tool Terms of Use</span><span class="legal-nav-desc">The payback estimator, and why it is not financial advice.</span></a></li>
+          <li class="legal-nav-item"><a href="cookies.html"><span class="legal-nav-name">Cookie Policy</span><span class="legal-nav-desc">What this website stores on your device.</span></a></li>
+        </ul>
+        <p class="legal-nav-foot">Each document is versioned and updated separately, so a change to one does not silently rewrite the others. Together they are the whole agreement.</p>
+      </div>
+    </nav>
   <div class="legal-body">
     <div class="container">
 
       <section>
-        <h2><span class="index">01</span>Who We Are</h2>
-        <p>Lux Oasis Interiors &amp; Renovation is a service line of Lux Oasis Advisory &amp; Services LLC, a company registered in the Sharjah Free Zone, United Arab Emirates. We provide renovation project management for property investors, holiday home owners and short-term-rental operators in Dubai. We are project managers and coordinators; the construction work itself is carried out by licensed contractors and specialist trades.</p>
-        <p>For anything related to this policy, contact us at <a href="mailto:info@luxoasisadvisory.com">info@luxoasisadvisory.com</a>.</p>
+        <p><strong>Lux Oasis Interiors &amp; Renovation</strong></p>
+        <p>Version 1.0 · Effective 1 September 2026</p>
+        <hr>
       </section>
 
       <section>
-        <h2><span class="index">02</span>What Information We Collect</h2>
-        <p>Depending on how you interact with us, we may collect:</p>
+        <h2><span class="index">01</span>Who we are</h2>
+        <p>Lux Oasis Interiors &amp; Renovation is a service line of Lux Oasis Advisory &amp; Services LLC, a company registered in the Sharjah Free Zone (SHAMS), United Arab Emirates, licence number 2645909, TRN 104722180700003 ("we", "us", "our").</p>
+        <p>We provide renovation project management for property investors, holiday home owners and short-term rental operators in Dubai, and a pre-purchase commercial assessment service. We are project managers and coordinators. The construction work itself is carried out by contractors and specialist trades who hold their own licences.</p>
+        <p>We are the controller of the personal data described in this policy. For anything relating to this policy, contact us at <a href="mailto:info@luxoasisadvisory.com">info@luxoasisadvisory.com</a> or on WhatsApp at +971 58 508 9283.</p>
+      </section>
+
+      <section>
+        <h2><span class="index">02</span>Group structure</h2>
+        <p>Lux Oasis Advisory &amp; Services LLC and Lux Oasis Holiday Homes are two separate companies registered in the United Arab Emirates. Neither owns the other. Lux Oasis Holiday Homes holds a DTCM licence and operates a short-term rental portfolio in JBR, Dubai Marina and Downtown Dubai. It is our operating partner: the live operation in which our systems and methods are tested before they are offered to clients. Lux Oasis Advisory &amp; Services LLC does not hold a DTCM licence and does not operate short-term rental accommodation.</p>
+        <p>We do not share your personal data with Lux Oasis Holiday Homes unless you ask us to introduce you to it for holiday home operation, and we will ask you first.</p>
+      </section>
+
+      <section>
+        <h2><span class="index">03</span>What we collect</h2>
+        <p>Depending on how you deal with us, we may collect:</p>
         <ul>
-          <li><strong>Contact details</strong> — your name, email address, phone or WhatsApp number.</li>
-          <li><strong>Property details</strong> — the building, unit type, size, current condition, photographs, drawings or handover documents you choose to send us.</li>
-          <li><strong>Project requirements</strong> — the scope you want, your budget range, your timing, and how the unit is or will be used.</li>
+          <li><strong>Contact details.</strong> Your name, email address, phone or WhatsApp number, and the company you represent.</li>
+          <li><strong>Property details.</strong> The building, community, unit type, size, current condition, photographs, drawings, handover documents, service charge information and title information you choose to send us.</li>
+          <li><strong>Project requirements.</strong> The scope you want, your budget range, your timing, and how the unit is or will be used.</li>
+          <li><strong>Pre-purchase assessment information.</strong> Where you ask us to assess a purchase, the asking price, the seller's or agent's information, and the figures you share with us about how you intend to fund and operate the unit.</li>
+          <li><strong>Project records.</strong> Scopes, budgets, programmes, variations, site reports, snagging lists, photographs and film of the property, and correspondence with contractors and suppliers about your project.</li>
           <li><strong>Records of our communications</strong> with you by email or WhatsApp.</li>
+          <li><strong>Billing information.</strong> Invoices issued to you and payments received. We do not collect or store payment card details.</li>
         </ul>
-        <p>We do not collect or store payment card details on this website. The payback estimator on the home page runs entirely in your browser: the numbers you type into it are never sent to us or to anyone else. Our services are not directed at minors and we do not knowingly collect information from them.</p>
+        <p>We do not knowingly collect information from minors, and our services are not directed at them.</p>
+        <p>The payback estimator on our website runs entirely in your browser. The numbers you type into it are never sent to us or to anyone else, and we never see them.</p>
       </section>
 
       <section>
-        <h2><span class="index">03</span>How We Use Your Information</h2>
-        <p>We use the information we collect to:</p>
-        <ul>
-          <li>Understand your property and respond to your enquiry.</li>
-          <li>Prepare a scope, an indicative budget and a programme for the work.</li>
-          <li>Coordinate the project — briefing contractors, suppliers and consultants with the information they need to quote and to build.</li>
-          <li>Communicate with you throughout the project and at handover.</li>
-          <li>Meet our legal, accounting and tax obligations.</li>
-        </ul>
-        <p>Your information is never sold, and it is never used for third-party advertising.</p>
+        <h2><span class="index">04</span>Where the information comes from</h2>
+        <p>Almost all of it comes from you. Some comes from parties you have asked us to deal with, such as your agent, your seller, your building management, your existing contractor, or a consultant already appointed. We say so at the time where it is not obvious.</p>
       </section>
 
       <section>
-        <h2><span class="index">04</span>How We Share Information</h2>
-        <p>Renovation project management involves other parties by its nature. We share only what is necessary:</p>
-        <ul>
-          <li>With contractors, specialist trades, suppliers and consultants who need the property and scope details in order to quote for or carry out the work.</li>
-          <li>With building management, owners' associations or authorities where an approval or a permit requires it.</li>
-          <li>With service providers who help us run our own business, such as communication and file storage tools.</li>
-          <li>With authorities, where we are legally required to do so.</li>
-        </ul>
-        <p>We share the minimum needed for each purpose, and everyone we work with is bound by confidentiality obligations.</p>
-      </section>
-
-      <section>
-        <h2><span class="index">05</span>Data Retention</h2>
-        <div class="legal-card">
-          <ul style="margin-top:0">
-            <li><strong>Project records:</strong> retained for the duration of the project plus 3 years, so that we can answer questions about work that was carried out.</li>
-            <li><strong>Enquiries that do not become projects:</strong> retained for 2 years.</li>
-            <li><strong>Deletion:</strong> you can request deletion at any time by email to <a href="mailto:info@luxoasisadvisory.com">info@luxoasisadvisory.com</a>.</li>
-          </ul>
+        <h2><span class="index">05</span>Why we use it, and on what basis</h2>
+        <div class="legal-table-wrap">
+          <table class="legal-table">
+            <thead>
+              <tr><th>What we do</th><th>Why</th><th>Basis</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Understand your property and respond to your enquiry</td><td>To answer you and decide whether we can help</td><td>Steps at your request before entering a contract</td></tr>
+              <tr><td>Prepare a scope, an indicative budget and a programme</td><td>To quote and to plan the work</td><td>Performance of our contract with you, or steps at your request</td></tr>
+              <tr><td>Brief contractors, trades, suppliers and consultants so they can quote and build</td><td>It is not possible to run a renovation without it</td><td>Performance of our contract with you</td></tr>
+              <tr><td>Apply for permits and owners' association approvals</td><td>Approvals are a condition of the works</td><td>Performance of our contract with you, and legal obligation</td></tr>
+              <tr><td>Communicate with you during the project and at handover</td><td>To run the project</td><td>Performance of our contract with you</td></tr>
+              <tr><td>Keep project records after handover</td><td>So we can answer questions about work carried out, and deal with defects</td><td>Our legitimate interest in defending and evidencing our work</td></tr>
+              <tr><td>Photograph and film the property and use the material in our marketing</td><td>To show our work</td><td>Your consent, which you can withdraw at any time</td></tr>
+              <tr><td>Meet our legal, accounting and tax obligations</td><td>Required of us</td><td>Legal obligation</td></tr>
+            </tbody>
+          </table>
         </div>
+        <p>We never sell your information, and we never use it for third-party advertising.</p>
       </section>
 
       <section>
-        <h2><span class="index">06</span>Your Rights</h2>
-        <p>You have the right to request access to your data, correction, erasure, restriction of processing and portability, and to object to processing. We respond to all such requests within 30 days.</p>
+        <h2><span class="index">06</span>Who we share it with</h2>
+        <p>Renovation project management involves other parties by its nature. We share the minimum necessary for each purpose.</p>
+        <ul>
+          <li><strong>Contractors, specialist trades, suppliers and consultants</strong>, so they can quote for or carry out the work. Because you contract with them directly, they are separate controllers of the information they hold about you and their own privacy terms apply to it.</li>
+          <li><strong>Building management, owners' associations, developers and authorities</strong>, where an approval, a permit, an access permission or a deposit requires it.</li>
+          <li><strong>Service providers who help us run our own business</strong>, such as email, messaging, file storage and accounting tools.</li>
+          <li><strong>Our professional advisers</strong>, such as accountants and lawyers, where needed.</li>
+          <li><strong>Authorities</strong>, where we are legally required to disclose.</li>
+        </ul>
+        <p>Everyone we engage is bound by confidentiality obligations. We do not disclose your identity, your unit number or your figures to any party who does not need them.</p>
       </section>
 
       <section>
-        <h2><span class="index">07</span>Cookies</h2>
-        <p>Our use of cookies is minimal and limited to analytics only. We do not use advertising cookies. Web fonts on this site are loaded from Google Fonts, which means your browser makes a request to Google's servers when you open the page.</p>
+        <h2><span class="index">07</span>Websites, fonts and video</h2>
+        <p><strong>Google Fonts.</strong> Web fonts on our website are loaded from Google Fonts. Your browser makes a request to Google's servers when you open a page, which discloses your IP address and basic request information to Google.</p>
+        <p><strong>YouTube.</strong> Our home page shows two project films hosted on YouTube. The page loads a still image for each film from a Google-operated server when you open it, which discloses your IP address to Google. The film itself is not loaded until you click play. If you click play, a YouTube player is loaded and YouTube and Google may set cookies and collect information about your viewing, under their own terms. If you do not click play, no YouTube player loads. Without JavaScript, the film is a plain link to the YouTube watch page.</p>
+        <p><strong>WhatsApp.</strong> Our contact buttons open a WhatsApp conversation. Messages you send are processed by Meta under its own terms.</p>
+        <p><strong>Forms.</strong> Our website has no form backend. Our contact controls open a message in your own email client or WhatsApp, addressed to us.</p>
+        <p>Our cookie position is set out in full in our Cookie Policy.</p>
       </section>
 
       <section>
-        <h2><span class="index">08</span>Data Security</h2>
-        <p>We apply appropriate technical and organisational measures to protect the information you send us, including access control on the accounts and storage we use. No system can offer an absolute guarantee of security, and we do not claim one.</p>
+        <h2><span class="index">08</span>How long we keep it</h2>
+        <ul>
+          <li><strong>Project records:</strong> for the duration of the project plus 3 years, so we can answer questions about work carried out.</li>
+          <li><strong>Enquiries that do not become projects:</strong> 2 years.</li>
+          <li><strong>Pre-purchase assessments that do not proceed:</strong> 2 years.</li>
+          <li><strong>Accounting and tax records:</strong> for the period required by UAE law.</li>
+          <li><strong>Photography and film used in marketing:</strong> until you withdraw consent, or until we stop using it.</li>
+        </ul>
+        <p>Deletion: you can ask us to delete your information at any time by writing to <a href="mailto:info@luxoasisadvisory.com">info@luxoasisadvisory.com</a>. Where we must keep something for a legal or accounting reason, or to defend a claim, we will tell you what and why.</p>
       </section>
 
       <section>
-        <h2><span class="index">09</span>International Transfers</h2>
-        <p>Data is processed in the United Arab Emirates. Where data is transferred internationally — for example to a supplier sourcing an item from abroad — appropriate safeguards are applied.</p>
+        <h2><span class="index">09</span>Your rights</h2>
+        <p>You have the right to ask for access to your data, correction, erasure, restriction of processing and portability, to object to processing, and to withdraw consent where we rely on it. Withdrawing consent does not affect what we did before you withdrew it. We respond to requests within 30 days.</p>
+        <p>To exercise any of these rights, contact <a href="mailto:info@luxoasisadvisory.com">info@luxoasisadvisory.com</a>. If you are not satisfied with our response, you may complain to the UAE Data Office.</p>
       </section>
 
       <section>
-        <h2><span class="index">10</span>Changes to This Policy</h2>
-        <p>If we make material changes to this policy, active clients will be notified by email.</p>
+        <h2><span class="index">10</span>Where your data is processed</h2>
+        <p>Our own processing takes place in the United Arab Emirates. <mark class="legal-flag">[PLACEHOLDER: confirm the hosting location of the website and of our email, messaging, file storage and accounting tools, and name them, before publication. Do not state a location that has not been verified.]</mark></p>
+        <p>Some transfers abroad are unavoidable in this business: a supplier sourcing an item from outside the UAE, a manufacturer confirming a specification, or a Google request generated when a page loads a font or a video thumbnail. Where personal data is transferred outside the UAE, we transfer only what is needed and rely on the safeguards available under the UAE Personal Data Protection Law, including your consent, necessity for the performance of a contract, and contractual protections with the recipient where applicable.</p>
       </section>
 
       <section>
-        <h2><span class="index">11</span>Contact</h2>
-        <div class="legal-card">
-          <p><strong>Lux Oasis Advisory &amp; Services LLC</strong> — Sharjah Free Zone, United Arab Emirates</p>
-          <p>Email: <a href="mailto:info@luxoasisadvisory.com">info@luxoasisadvisory.com</a><br>
-          WhatsApp: <a href="https://wa.me/971585089283" target="_blank" rel="noopener">wa.me/971585089283</a></p>
-        </div>
+        <h2><span class="index">11</span>Security</h2>
+        <p>We apply appropriate technical and organisational measures to protect the information you send us, including access control on the accounts and storage we use, and restricting project information to the people working on your project. No system can offer an absolute guarantee of security and we do not claim one.</p>
+      </section>
+
+      <section>
+        <h2><span class="index">12</span>Changes to this policy</h2>
+        <p>If we make material changes we will give at least 30 days' notice by email to active clients and publish the new version at its own permanent address. Every version carries a version number and an effective date and is never overwritten in place.</p>
+      </section>
+
+      <section>
+        <h2><span class="index">13</span>Contact</h2>
+        <p>Lux Oasis Advisory &amp; Services LLC, Sharjah Free Zone (SHAMS), United Arab Emirates. Licence number 2645909. TRN 104722180700003.</p>
+        <p>Email: <a href="mailto:info@luxoasisadvisory.com">info@luxoasisadvisory.com</a> · WhatsApp: +971 58 508 9283</p>
+      </section>
+
+      <section>
+        <h2><span class="index">14</span>Language</h2>
+        <p>These documents are written in English. English is the governing language. If they are translated, the English version prevails.</p>
+        <hr>
+        <p>This document has been prepared for review and requires sign-off by a qualified UAE lawyer before publication. It is not legal advice.</p>
       </section>
 
       <p class="legal-back"><a class="text-link" href="index.html">← Back to Lux Oasis Interiors &amp; Renovation</a></p>

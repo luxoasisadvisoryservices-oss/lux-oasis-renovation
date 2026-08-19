@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <!-- GENERATED FILE — do not edit directly. Edit the files in partials/ styles/ scripts/ then run: python3 build.py -->
 <!-- TODO: reconcile body copy with the original luxoasisrenovations.com once readable. Built from verified metadata + group facts. -->
 <html lang="en">
@@ -1611,6 +1611,115 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
 .legal-card p:last-child { margin-bottom: 0; }
 .legal-back { margin-top: 40px; }
 /* ============================================================
+   LEGAL DOCUMENTS — elements used by the full document set
+   (cookies.html, tools.html and the longer terms.html).
+   Scoped to .legal-body so nothing else moves.
+   ============================================================ */
+
+.legal-body h3 {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 24px 0 10px;
+  color: var(--ink);
+}
+.legal-body h4 {
+  font-size: 14.5px;
+  font-weight: 600;
+  margin: 20px 0 8px;
+  color: var(--ink-body);
+}
+.legal-body ol { margin: 8px 0 12px 22px; }
+.legal-body ol li { font-size: 15.5px; color: var(--ink-muted); margin-bottom: 8px; }
+.legal-body blockquote {
+  margin: 16px 0;
+  padding: 2px 0 2px 18px;
+  border-left: 3px solid var(--cobalt);
+}
+.legal-body blockquote p:last-child { margin-bottom: 0; }
+.legal-body hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 32px 0;
+}
+.legal-body code {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  word-break: break-word;
+  color: var(--ink-muted);
+}
+.legal-body .legal-flag {
+  background: #FBEFC0;
+  color: var(--ink);
+  padding: 1px 4px;
+}
+.legal-body .legal-choices { list-style: none; margin-left: 0; }
+.legal-body .legal-choices li {
+  position: relative;
+  padding-left: 26px;
+}
+.legal-body .legal-choices li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 4px;
+  width: 13px; height: 13px;
+  border: 1.5px solid var(--cobalt);
+}
+
+/* Tables. The wrapper scrolls on a phone rather than forcing the page wide. */
+.legal-table-wrap {
+  margin: 18px 0 22px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.legal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 1.65;
+  min-width: 460px;
+}
+.legal-table th,
+.legal-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 10px 13px;
+  border: 1px solid var(--rule);
+  color: var(--ink-muted);
+}
+.legal-table thead th {
+  background: var(--paper-2);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.legal-table tbody tr:nth-child(even) td { background: rgba(0, 0, 0, 0.014); }
+
+@media (max-width: 640px) {
+  .legal-table { font-size: 13px; min-width: 380px; }
+  .legal-table th, .legal-table td { padding: 8px 10px; }
+}
+
+/* ---------- legal document index ----------
+   A client landing on any legal page can see and reach every other document
+   for that service. The documents stay separately versioned, which is why
+   this is a set of links rather than one merged page. */
+.legal-nav { margin: 0 0 8px; padding: 26px 0 4px; }
+.legal-nav-head { font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; opacity: .62; margin: 0 0 14px; }
+.legal-nav-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: currentColor; border: 1px solid; border-radius: 10px; overflow: hidden; }
+.legal-nav-item { margin: 0; padding: 0; background: var(--paper, #fff); }
+.legal-nav-item > a, .legal-nav-item.is-current { display: block; padding: 14px 16px; text-decoration: none; color: inherit; }
+.legal-nav-item > a:hover { background: rgba(127,127,127,.08); }
+.legal-nav-name { display: block; font-weight: 600; font-size: .96rem; }
+.legal-nav-desc { display: block; font-size: .86rem; opacity: .68; margin-top: 3px; line-height: 1.45; }
+.legal-nav-item.is-current { opacity: .72; }
+.legal-nav-here { display: inline-block; margin-top: 5px; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; opacity: .7; }
+.legal-nav-foot { font-size: .84rem; opacity: .62; margin: 12px 0 0; line-height: 1.5; }
+@media (max-width: 767px) { .legal-nav { padding-top: 18px; } .legal-nav-desc { font-size: .82rem; } }
+/* ============================================================
    SCROLL REVEAL
    ============================================================ */
 .reveal {
@@ -1963,6 +2072,88 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
       .ba-divider, .ba-range { display: none; }
     </style>
   </noscript>
+
+  <!-- STRUCTURED DATA (schema.org JSON-LD)
+       All four sites declare the SAME Organization @id, so search engines and
+       answer engines resolve them to one company instead of four unrelated sites.
+       Deliberately NOT included: any price (pricing decisions are still open and a
+       machine-readable price that contradicts the FAQ is worse than none), any
+       rating or review (none exist), and any relationship to Lux Oasis Holiday Homes
+       (it is a separate company; every schema.org relation property would misstate it). -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://luxoasisadvisory.com/#organization",
+      "name": "Lux Oasis Advisory & Services",
+      "legalName": "Lux Oasis Advisory & Services LLC",
+      "url": "https://luxoasisadvisory.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://luxoasisadvisory.com/assets/logo.png"
+      },
+      "email": "info@luxoasisadvisory.com",
+      "description": "Lux Oasis Advisory & Services builds technology and services for the short-term rental industry: revenue management, AI guest communication, a B2B network app, and renovation project management.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressRegion": "Sharjah",
+        "addressCountry": "AE"
+      },
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "name": "UAE Trade Licence (SHAMS)",
+          "value": "2645909"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "UAE Tax Registration Number",
+          "value": "104722180700003"
+        }
+      ],
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "sales",
+          "email": "info@luxoasisadvisory.com",
+          "telephone": "+971585089283",
+          "availableLanguage": [
+            "en"
+          ],
+          "areaServed": "AE"
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.luxoasisrenovations.com/#website",
+      "url": "https://www.luxoasisrenovations.com/",
+      "name": "Lux Oasis Interiors & Renovation",
+      "publisher": {
+        "@id": "https://luxoasisadvisory.com/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.luxoasisrenovations.com/#service",
+      "name": "Lux Oasis Interiors & Renovation",
+      "url": "https://www.luxoasisrenovations.com/",
+      "serviceType": "Renovation project management",
+      "description": "Renovation project management for Dubai property investors and short-term rental operators: scope, design direction, contractor selection, procurement, site coordination and handover. Licensed contractors carry out the works.",
+      "provider": {
+        "@id": "https://luxoasisadvisory.com/#organization"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Dubai"
+      }
+    }
+  ]
+}
+  </script>
 </head>
 <body>
 
@@ -3323,6 +3514,8 @@ input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: v
         <ul>
           <li><a href="privacy.html">Privacy Policy</a></li>
           <li><a href="terms.html">Terms and Conditions</a></li>
+          <li><a href="tools.html">Tool Terms of Use</a></li>
+          <li><a href="cookies.html">Cookie Policy</a></li>
           <li><a href="https://luxoasisadvisory.com" target="_blank" rel="noopener">Lux Oasis Advisory</a></li>
         </ul>
       </nav>
